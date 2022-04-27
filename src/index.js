@@ -1,12 +1,16 @@
 import {Header} from "./components/Header";
-import {routes} from "./router";
+import {routes, dispatchCurrenRouteByHash} from "./router";
 
-let route = routes.filter((i) => i.url === document.location.pathname);
-route = route[0];
 
-if (!route) {
-    route = routes[routes.length - 1];
+function onRouteChange(route) {
+    document.getElementById("app").innerHTML = route.component.render();
 }
 
+window.addEventListener('hashchange', (e) => {
+    e.preventDefault();
+    dispatchCurrenRouteByHash(onRouteChange)
+});
+
+
 document.getElementById("header").innerHTML = (new Header({routes})).render();
-document.getElementById("app").innerHTML = route.component.render();
+dispatchCurrenRouteByHash(onRouteChange);

@@ -4,6 +4,26 @@ import {LoginPage} from "../pages/Login";
 import {BaseAccountPage, EditedAccountPage} from "../pages/Account";
 import {ChatPage} from "../pages/Chat";
 
+function findRouteByUrl(url) {
+    let route = routes.filter((i) => i.url === url);
+    route = route[0];
+
+    if (!route) {
+        route = findRouteByUrl("/404");
+    }
+
+    return route;
+}
+
+function dispatchCurrenRouteByHash(callback) {
+    const hash = location.hash.substring(1);
+    const route = findRouteByUrl(hash);
+
+    if (typeof callback === "function") {
+        callback(route);
+    }
+}
+
 const routes = [
     {
         "title": "Регистрация",
@@ -57,4 +77,4 @@ const routes = [
     },
 ];
 
-export {routes};
+export {routes, dispatchCurrenRouteByHash};
