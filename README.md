@@ -1,3 +1,7 @@
+[![Netlify Status](https://api.netlify.com/api/v1/badges/6ecdf16d-5899-4a67-b045-903f38e91b91/deploy-status)](https://app.netlify.com/sites/magnificent-malabi-11b0a9/deploys)
+
+[link on netlify](https://magnificent-malabi-11b0a9.netlify.app/)
+
 ## Первый спринт
 Pull request: https://github.com/itim92/middle.messenger.praktikum.yandex/pull/1
 
