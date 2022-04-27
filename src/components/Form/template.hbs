@@ -1,0 +1,11 @@
+<form>
+    {{#each elements}}
+    <label class="form-element">
+        <span class="form-element-label">{{ label }}</span>
+        <input type="text" name="{{ name }}">
+    </label>
+    {{/each}}
+    <div class="submit-wrapper">
+        <input type="submit" value="{{ submit.value }}">
+    </div>
+</form>

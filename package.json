@@ -1,0 +1,24 @@
+{
+  "name": "yp.module1.webchat",
+  "version": "1.0.0",
+  "description": "",
+  "engine": "17.4",
+  "scripts": {
+    "dev": "parcel index.html",
+    "build": "parcel build index.html",
+    "prebuild": "rm -rf dist",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ismailov Timur <i.timka92@yandex.ru>",
+  "license": "ISC",
+  "devDependencies": {
+    "@parcel/transformer-less": "^2.4.1",
+    "@parcel/plugin": "^2.5.0",
+    "express": "^4.17.3",
+    "parcel": "^2.4.1",
+    "parcel-transformer-hbs": "^1.0.4"
+  },
+  "dependencies": {
+    "handlebars": "^4.7.7"
+  }
+}
