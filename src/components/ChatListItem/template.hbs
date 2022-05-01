@@ -1,0 +1,10 @@
+<div class="chat-item {{#if isActive }} active{{/if}}">
+    <div class="avatar"><img src="{{ noAvatarImage }}" alt="no-avatar"></div>
+    <div class="item-container">
+        <div class="header">
+            <div class="username">{{ username }}</div>
+            <div class="datetime">{{ lastMessage.datetime }}</div>
+        </div>
+        <div class="message">{{ lastMessage.message }}</div>
+    </div>
+</div>

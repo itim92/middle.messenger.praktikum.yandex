@@ -1,0 +1,30 @@
+<div class="container fluid page-chat-wrapper">
+    <div class="page-header">
+        <div class="profile-link"><a href="#">Профиль &raquo;</a></div>
+        <div class="chat-search-wrapper">
+            <input type="text" placeholder="Поиск">
+        </div>
+    </div>
+    <div class="page-chat">
+        <div class="chat-list-wrapper">
+            <div class="inner">
+                <ChatListItems />
+            </div>
+        </div>
+        {{#unless activeChat }}
+            <div class="content empty">
+                <div class="message">Выберите чат, чтобы отправить свое сообщение</div>
+            </div>
+        {{ else }}
+            <div class="content">
+                <div class="header"><Avatar /></div>
+                <ChatTrack />
+                <div class="new-message-form">
+                    <span class="btn attach">Прикрепить</span>
+                    <input class="new-message-input" type="text" name="message">
+                    <span class="btn send">Отправить</span>
+                </div>
+            </div>
+        {{/unless}}
+    </div>
+</div>
