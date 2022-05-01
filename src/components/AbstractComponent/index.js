@@ -1,5 +1,5 @@
 export class AbstractComponent {
-    constructor(props = undefined) {
+    constructor(props = {}) {
         if (typeof props !== "object" || props.constructor !== Object) {
             props = {};
         }
