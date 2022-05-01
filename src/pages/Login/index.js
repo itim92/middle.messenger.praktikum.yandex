@@ -10,11 +10,11 @@ export class LoginPage extends AbstractComponent {
             elements: [
                 {
                     label: "Логин",
-                    name: "login"
+                    name: "login",
                 },
                 {
                     label: "Пароль",
-                    name: "password"
+                    name: "password",
                 },
             ],
             submit: {
