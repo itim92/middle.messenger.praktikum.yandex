@@ -4,8 +4,9 @@ import noAvatarImage from "../../shared/img/user.svg";
 
 export class Avatar extends AbstractComponent {
     render() {
-        return template(Object.assign(this.props, {
+        return template({
+            ...this.props,
             noAvatarImage
-        }));
+        });
     }
 }
