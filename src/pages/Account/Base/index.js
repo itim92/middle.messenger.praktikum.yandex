@@ -10,8 +10,9 @@ export class BaseAccountPage extends AbstractComponent {
     }
 
     render() {
-        let html = template(this.props);
-
-        return html.replace("<Avatar />", this.avatar.render());
+        return template({
+            ...this.props,
+            avatar: this.avatar.render(),
+        });
     }
 }
