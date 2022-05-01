@@ -5,8 +5,7 @@ import {BaseAccountPage, EditedAccountPage} from "../pages/Account";
 import {ChatPage} from "../pages/Chat";
 
 function findRouteByUrl(url) {
-    let route = routes.filter((i) => i.url === url);
-    route = route[0];
+    let route = routes.find((i) => i.url === url);
 
     if (!route) {
         route = findRouteByUrl("/404");
