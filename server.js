@@ -1,8 +1,9 @@
-const express = await import("express");
-const path = await import("path");
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const express = require("express");
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const path = require("path");
 
 const app = express();
-const PORT = 3000;
 
 app.use(express.static(path.join(__dirname, "/dist")));
 
@@ -10,4 +11,4 @@ app.get("/*", (req, res) => {
     res.sendFile(path.join(__dirname, "/dist/index.html"));
 });
 
-app.listen(PORT);
+app.listen("3000");
