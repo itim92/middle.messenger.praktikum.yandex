@@ -2,8 +2,8 @@
 
 [link on netlify](https://magnificent-malabi-11b0a9.netlify.app/)
 
-## Первый спринт
-Pull request: https://github.com/itim92/middle.messenger.praktikum.yandex/pull/1
+## Второй спринт
+Pull request: https://github.com/itim92/middle.messenger.praktikum.yandex/pull/2
 
 ## Описание
 Простой веб-чат с открытым исходным кодом.
