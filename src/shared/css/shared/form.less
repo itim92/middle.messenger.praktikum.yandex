@@ -1,36 +1,67 @@
-input[type="text"], input[type="password"] {
-  background: #FFFFFF;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  box-sizing: border-box;
-  border-radius: 9px;
-  outline: none;
+input[type="text"],
+input[type="password"] {
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+    border-radius: 9px;
+    outline: none;
 
-  font-weight: 400;
-  font-size: 16px;
+    font-weight: 400;
+    font-size: 16px;
 
-  color: #434A53;
+    color: #434a53;
 
-  padding: 12px 20px 10px 20px;
+    padding: 12px 20px 10px 20px;
 
-  &:focus {
-    box-shadow: 10px 15px 25px rgba(29, 162, 237, 0.18);
-    border-color: #218ECB;
-  }
+    &:focus {
+        box-shadow: 10px 15px 25px rgba(29, 162, 237, 0.18);
+        border-color: #218ecb;
+    }
 
-  &.with-error {
-    box-shadow: 10px 15px 25px rgba(249, 20, 5, 0.18);
-    border-color: #F91405;
-  }
+    &.with-error {
+        box-shadow: 10px 15px 25px rgba(249, 20, 5, 0.18);
+        border-color: #f91405;
+    }
 }
 
-input[type=submit] {
-  background: #2D7CA8;
-  border-radius: 9px;
+input[type="submit"] {
+    background: #2d7ca8;
+    border-radius: 9px;
 
-  padding: 18px 20px 16px 20px;
-  font-size: 16px;
-  color: #FFFFFF;
+    padding: 18px 20px 16px 20px;
+    font-size: 16px;
+    color: #ffffff;
 
-  border: none;
-  cursor: pointer;
+    border: none;
+    cursor: pointer;
+}
+
+.chat-base-form {
+    .form-element {
+        display: block;
+        padding: 0 0 20px;
+
+        .form-element-label {
+            font-weight: 400;
+            font-size: 16px;
+            padding: 0 0 7px;
+        }
+
+        input {
+            width: 280px;
+        }
+
+        .form-element-error {
+            padding: 7px 0 0 0;
+            color: #d63c32;
+        }
+
+        &.with-error {
+            border-color: #d63c32;
+        }
+    }
+
+    .submit-wrapper {
+        text-align: center;
+    }
 }

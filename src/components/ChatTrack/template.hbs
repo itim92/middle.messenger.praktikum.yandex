@@ -1,13 +1,5 @@
 <div class="messages">
     <div class="messages-track">
-        {{#each track}}
-        <div class="date-item">{{ date }}</div>
-            {{#each messages}}
-                <div class="message-item {{#unless author_id}} mine{{/unless}}">
-                    <div class="text">{{ text }}</div>
-                    <div class="time">{{ time }}</div>
-                </div>
-            {{/each}}
-        {{/each}}
+        <span data-track></span>
     </div>
 </div>

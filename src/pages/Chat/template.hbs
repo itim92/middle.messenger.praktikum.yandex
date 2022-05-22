@@ -1,4 +1,4 @@
-<div class="container fluid page-chat-wrapper">
+<div class="page-chat-wrapper">
     <div class="page-header">
         <div class="profile-link"><a href="#">Профиль &raquo;</a></div>
         <div class="chat-search-wrapper">
@@ -6,22 +6,22 @@
         </div>
     </div>
     <div class="page-chat">
-        <div class="chat-list-wrapper">
-            <div class="inner">
-                <ChatListItems />
-            </div>
-        </div>
+        <span data-component="ChatList"></span>
+
         {{#unless activeChat }}
             <div class="content empty">
                 <div class="message">Выберите чат, чтобы отправить свое сообщение</div>
             </div>
         {{ else }}
             <div class="content">
-                <div class="header"><Avatar /></div>
-                <ChatTrack />
+                <div class="header"><span data-component="Avatar"></span></div>
+                <span data-component="ChatTrack"></span>
                 <div class="new-message-form">
                     <span class="btn attach">Прикрепить</span>
-                    <input class="new-message-input" type="text" name="message">
+                    <div class="new-message-input-wrapper">
+                        <input class="new-message-input" type="text" name="message">
+                        <div class="new-message-input-error" style="display: none;">Поле для сообщения не может быть пустым</div>
+                    </div>
                     <span class="btn send">Отправить</span>
                 </div>
             </div>
