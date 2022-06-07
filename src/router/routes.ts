@@ -1,6 +1,7 @@
 import { ErrorPage } from "@/pages/Error";
 import { RouterComponent } from "./route";
 import { Component } from "@/lib/templator";
+import { LoginPage } from "@/pages/Login";
 
 type RouteObjectType = {
     title: string;
@@ -9,6 +10,16 @@ type RouteObjectType = {
 };
 
 const routes: RouteObjectType[] = [
+    {
+        title: "Авторизоваться",
+        url: "/",
+        component: {
+            component: LoginPage as typeof Component,
+            props: {
+                className: "container",
+            },
+        },
+    },
     {
         title: "500 ошибка",
         url: "/500",

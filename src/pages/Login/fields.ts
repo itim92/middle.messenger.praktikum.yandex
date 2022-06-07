@@ -1,4 +1,4 @@
-import { FormElementType } from "../../components/Form";
+import { FormElementType } from "@/components/Form";
 
 const elements: FormElementType[] = [
     {

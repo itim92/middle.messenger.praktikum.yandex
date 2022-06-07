@@ -3,9 +3,8 @@ import { EVENTS } from "./events";
 
 type RenderResult = DocumentFragment | null;
 
-type DefaultPropsType = object & {
+export type DefaultPropsType = object & {
     className?: string;
-    children?: Array<RenderResult>;
 };
 
 export class Component<

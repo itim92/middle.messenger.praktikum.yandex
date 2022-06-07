@@ -75,7 +75,6 @@ function renderChildren(
     dom: HTMLElement | DocumentFragment,
     children?: Array<HTMLElement>
 ) {
-    console.log("child", dom, children);
     if (!children) {
         return;
     }

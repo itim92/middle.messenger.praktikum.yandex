@@ -1,5 +1,5 @@
-import { Component } from "../../../../templator";
-import template from "./template.hbs";
+import { Component } from "@/lib/templator";
+import template from "./template.tpl";
 import { FormElementType, FormElementEventHandlerType } from "../../types";
 
 export type TextInputPropsType = {
@@ -13,12 +13,12 @@ export type TextInputPropsType = {
 
 export class InputText extends Component<TextInputPropsType> {
     currentValue = "";
-
-    readonly events = {
-        "blur input": this.onBlur.bind(this),
-        "focus input": this.onFocus.bind(this),
-        "change input": this.onChange.bind(this),
-    };
+    //
+    // readonly events = {
+    //     "blur input": this.onBlur.bind(this),
+    //     "focus input": this.onFocus.bind(this),
+    //     "change input": this.onChange.bind(this),
+    // };
 
     constructor(props: TextInputPropsType) {
         super(props);
@@ -83,6 +83,12 @@ export class InputText extends Component<TextInputPropsType> {
             this.props.element.value ??
             "";
 
-        return template({ ...this.props, currentValue });
+        return template({
+            ...this.props.element,
+            currentValue,
+            onBlur: this.onBlur.bind(this),
+            onFocus: this.onFocus.bind(this),
+            onChange: this.onChange.bind(this),
+        });
     }
 }

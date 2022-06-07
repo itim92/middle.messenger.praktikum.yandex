@@ -1,12 +1,11 @@
-import { Component } from "../../templator";
-import template from "./template.hbs";
+import { Component } from "@/lib/templator";
+import template from "./template.tpl";
 import {
     FormElementEventHandlerType,
     FormElementType,
     FormEventHandlerType,
     FormValuesType,
 } from "./types";
-import { InputPassword, InputText } from "./fields";
 import { TextInputPropsType } from "./fields/InputText";
 
 type PropsType = {
@@ -19,14 +18,12 @@ type PropsType = {
 };
 
 export class Form extends Component<PropsType> {
-    readonly events = {
-        "submit form": this.onSubmit.bind(this),
-    };
-
     _getFormData(form: HTMLFormElement): FormValuesType {
         const values: FormValuesType = {};
         const formData = new FormData(form);
 
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
         for (const entry of formData.entries()) {
             const [key, value] = entry;
             values[key] = value;
@@ -45,12 +42,11 @@ export class Form extends Component<PropsType> {
         const form = event.target as HTMLFormElement;
         const values = this._getFormData(form);
 
-        console.log(values);
         this.props.onSubmit(event, { values, component: this });
     }
 
     getFields() {
-        const formFields: Component[] = this.props.elements.map((element) => {
+        return this.props.elements.map((element) => {
             const props: TextInputPropsType = {
                 element,
                 onFocus: this.props.onFieldFocus,
@@ -60,19 +56,16 @@ export class Form extends Component<PropsType> {
             if (element.value) {
                 props.currentValue = element.value;
             }
-            switch (element.type) {
-                case "password":
-                    return new InputPassword(props);
-                case "text":
-                default:
-                    return new InputText(props);
-            }
-        });
 
-        return formFields;
+            return props;
+        });
     }
 
     render() {
-        return template(this.props);
+        return template({
+            getFields: this.getFields.bind(this),
+            onSubmit: this.onSubmit.bind(this),
+            submit: this.props.submit,
+        });
     }
 }

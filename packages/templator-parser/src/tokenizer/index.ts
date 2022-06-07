@@ -51,6 +51,7 @@ export default class Tokenizer {
                 this.tokens.push(token);
                 lastToken = token;
             } else {
+                console.log(this.tokens);
                 throw new Error(code);
             }
         }
@@ -147,7 +148,7 @@ export default class Tokenizer {
 
     parseTextNode(code: string): [TokenType, string] {
         const re =
-            /^([_\n\w\d\sа-я!.,{}()[\]'"]+|{[_\n\w\d\sа-я!.,{}()[\]'"]+}\s+)</i;
+            /^([_\n\w\d\sа-я?!.,{}()[\]'"]+|{[_\n\w\d\sа-я?!.,{}()[\]'"]+}\s+)</i;
         const matches = code.match(re);
 
         const token = this.createToken(this.TOKEN_TYPES.TEXT_NODE);
@@ -160,7 +161,7 @@ export default class Tokenizer {
 
         if (textNode.length) {
             code = code.slice(textNode.length);
-            token.value = textNode;
+            token.value = textNode.trim();
         }
 
         return [token, code];

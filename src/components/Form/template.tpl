@@ -1,45 +1,43 @@
-import { InputText, TextInputPropsType } from "./fields/InputText/index.js";
-import { InputPassword } from "./fields/index.js";
+import { InputPassword, InputText } from "@/components/Form/fields";
 
-export default function template() {
+export default function template({
+    getFields,
+    submit,
+    onSubmit
+}) {
+    const renderField = ({
+        element,
+        onFocus,
+        onBlur,
+        onChange
+    }) => {
+        let Component;
+        switch (element.type) {
+            case "password":
+                Component = InputPassword;
+            case "text":
+            default:
+                Component = InputText;
+        }
+
+        return (
+            <>
+                <Component element={element} onFocus={onFocus} onBlur={onBlur}
+                           onChange={onChange} />
+            </>
+        );
+    };
 
     return (
         <>
-            <form className="chat-base-form" autoComplete="off">
-                <span data-fields></span>
+            <form className="chat-base-form" autoComplete="off" onSubmit={onSubmit}>
+                {getFields()
+                    .map(renderField)}
                 <div className="submit-wrapper">
-                    <input type="submit" value="{{ submit }}" />
+                    <input type="submit" value={submit} />
                 </div>
             </form>
         </>
     );
-}
-
-function fields({
-    element,
-    onFocus,
-    onBlur,
-    onChange
-}) {
-    const formFields: Component[] = this.props.elements.map((element) => {
-        const props: TextInputPropsType = {
-            element,
-            onFocus: this.props.onFieldFocus,
-            onBlur: this.props.onFieldBlur,
-            onChange: this.props.onFieldChange
-        };
-        if (element.value) {
-            props.currentValue = element.value;
-        }
-        switch (element.type) {
-            case "password":
-                return new InputPassword(props);
-            case "text":
-            default:
-                return new InputText(props);
-        }
-    });
-
-}
 }
 
