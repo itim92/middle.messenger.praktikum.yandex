@@ -1,29 +1,27 @@
-import { EventBus } from "../event-bus";
+import { EventBus } from "../../event-bus";
 import { EVENTS } from "./events";
 
-export type ChildrenType = {
-    selector: string;
-    component: Component | Component[];
+type RenderResult = DocumentFragment | null;
+
+type DefaultPropsType = object & {
+    className?: string;
+    children?: Array<RenderResult>;
 };
 
 export class Component<
-    ComponentProps extends object = Record<string, unknown>
+    ComponentProps extends DefaultPropsType = Record<string, unknown>
 > {
     // region private_p
 
-    readonly events: Record<string, EventListenerOrEventListenerObject | never>;
-
-    _element: HTMLElement;
+    _element!: HTMLElement;
 
     _meta: {
-        props: ProxyHandler<ComponentProps>;
+        lastCssDisplayProperty?: string;
+        props: ComponentProps;
         tagName: string;
-        className: string;
     };
 
     _eventBus: EventBus;
-
-    _children: ChildrenType[];
 
     // endregion private_p
 
@@ -43,14 +41,12 @@ export class Component<
 
     constructor(
         props: ComponentProps = {} as ComponentProps,
-        tagName = "div",
-        className = ""
+        tagName?: string
     ) {
         this._eventBus = new EventBus();
         this._meta = {
             props,
-            tagName,
-            className,
+            tagName: tagName ?? this.getDefaultTagName(),
         };
 
         this.props = this._makePropsProxy(props);
@@ -59,13 +55,13 @@ export class Component<
         this.eventBus.emit(EVENTS.INIT);
     }
 
-    // Может переопределять пользователь, необязательно трогать
-    render(): string {
-        return "";
+    getDefaultTagName(): string {
+        return "div";
     }
 
-    inject(): ChildrenType[] {
-        return [];
+    // Может переопределять пользователь, необязательно трогать
+    render(): RenderResult {
+        return null;
     }
 
     // region flow
@@ -104,49 +100,46 @@ export class Component<
         this.eventBus.emit(EVENTS.FLOW_CDU, this.props, nextProps);
     }
 
+    show() {
+        let cssDisplayProperty: string;
+        if (this.element?.style.display !== "none") {
+            cssDisplayProperty = this._meta.lastCssDisplayProperty ?? "";
+        } else {
+            cssDisplayProperty = "";
+        }
+
+        if (this.element) {
+            this.element.style.display = cssDisplayProperty;
+        }
+    }
+
+    hide() {
+        if (!this.element) {
+            return;
+        }
+
+        if (this.element.style.display !== "none") {
+            this._meta.lastCssDisplayProperty = this.element.style.display;
+        }
+        this.element.style.display = "none";
+    }
+
     // endregion public_f
     // region private_f
     // region flow
 
-    _inject() {
-        this._children = this.inject();
-
-        if (!this._children) {
+    _render() {
+        if (!this.element) {
             return;
         }
 
-        for (const child of this._children) {
-            const { selector, component } = child;
+        this.element.innerHTML = "";
+        this.element.textContent = "";
 
-            const childContainer = this.element.querySelector(selector);
-
-            if (!childContainer) {
-                continue;
-            }
-
-            const fragment = document.createDocumentFragment();
-            if (Array.isArray(component)) {
-                component.forEach((item) => {
-                    item.dispatchComponentDidMount();
-                    fragment.appendChild(item.element);
-                });
-            } else {
-                component.dispatchComponentDidMount();
-                fragment.appendChild(component.element);
-            }
-
-            childContainer.replaceWith(fragment);
+        const renderResult = this.render();
+        if (renderResult !== null) {
+            this.element.appendChild(renderResult);
         }
-    }
-
-    _render() {
-        this._unregisterComponentEvents();
-
-        this.element.innerHTML = this.render();
-
-        this._registerComponentEvents();
-
-        this._inject();
     }
 
     _componentDidMount() {
@@ -159,43 +152,6 @@ export class Component<
         if (response) {
             this.eventBus.emit(EVENTS.FLOW_RENDER);
         }
-    }
-
-    _mapComponentEvents(
-        callback: (
-            element: Element,
-            eventType: keyof ElementEventMap,
-            listener: EventListenerOrEventListenerObject
-        ) => void
-    ) {
-        setTimeout(() => {
-            for (const key in this.events) {
-                const [eventType, ...selector] = key.split(" ");
-                const elements = this.element.querySelectorAll(
-                    selector.join(" ")
-                );
-
-                for (const element of elements) {
-                    callback(
-                        element,
-                        eventType as keyof ElementEventMap,
-                        this.events[key] as EventListenerOrEventListenerObject
-                    );
-                }
-            }
-        });
-    }
-
-    _registerComponentEvents() {
-        this._mapComponentEvents((element, eventType, listener) => {
-            element.addEventListener(eventType, listener);
-        });
-    }
-
-    _unregisterComponentEvents() {
-        this._mapComponentEvents((element, eventType, listener) =>
-            element.removeEventListener(eventType, listener)
-        );
     }
 
     // endregion flow
@@ -213,12 +169,10 @@ export class Component<
     }
 
     _createResources() {
-        const { tagName, className } = this._meta;
-        this._element = this._createDocumentElement(tagName);
+        const { tagName } = this._meta;
 
-        if (className) {
-            this._element.className = className;
-        }
+        this._element = this._createDocumentElement(tagName);
+        this._element.className = this.props.className ?? "";
     }
 
     _makePropsProxy(props: ComponentProps): ComponentProps {

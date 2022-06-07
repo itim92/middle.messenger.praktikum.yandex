@@ -1,95 +1,56 @@
-import { ErrorPage } from "../pages/Error";
-import { ChatPage } from "../pages/Chat";
-import { Component } from "../templator";
-import { LoginController } from "../controllers";
-import { IController } from "../controllers/IController";
-import { RegisterController } from "../controllers/Register";
-import { AccountController } from "../controllers/Account";
+import routes from "./routes";
+import { Router } from "./router";
 
-type RouteType = {
-    title: string;
-    url: string;
-    component?: Component;
-    controller?: IController;
-};
+export function createRouter(selector: string) {
+    const root = document.querySelector(selector);
 
-const defaultRouteUrl = "/404";
-
-function findRouteByUrl(url: string): RouteType {
-    let route = routes.find((i) => i.url === url);
-
-    if (!route) {
-        route = findRouteByUrl(defaultRouteUrl);
+    if (!root) {
+        throw new Error(`Root selector for router not found (${selector})`);
     }
 
-    return route;
-}
+    const router = new Router(root as HTMLElement);
 
-function dispatchCurrenRouteByHash(callback: CallableFunction) {
-    const hash = location.hash.substring(1);
-    const route = findRouteByUrl(hash);
-
-    if (typeof callback === "function") {
-        callback(route);
+    for (const route of routes) {
+        if (route.url === "*") {
+            router.useAsDefault(route.component);
+        } else {
+            router.use(route.url, route.component);
+        }
     }
+
+    return router;
 }
 
-const routes: RouteType[] = [
-    {
-        title: "Регистрация",
-        url: "/register",
-        controller: new RegisterController(),
-    },
-    {
-        title: "Вход",
-        url: "/login",
-        controller: new LoginController(),
-    },
-    {
-        title: "Профиль",
-        url: "/account",
-        controller: new AccountController(),
-    },
-    {
-        title: "Профиль (редактирование)",
-        url: "/account-edited",
-        controller: new AccountController(true),
-    },
-    {
-        title: "Чат",
-        url: "/chat",
-        component: new ChatPage({ activeChat: 1 }, "div", "container fluid"),
-    },
-    {
-        title: "Чат (без активного диалога)",
-        url: "/chat-no-active",
-        component: new ChatPage({ activeChat: 0 }, "div", "container fluid"),
-    },
-    {
-        title: "500 ошибка",
-        url: "/500",
-        component: new ErrorPage(
-            {
-                title: "500",
-                subtitle: "Не беспокойтесь, мы уже чиним",
-            },
-            "div",
-            "container fluid"
-        ),
-    },
-    {
-        title: "404 ошибка",
-        url: "/404",
-        component: new ErrorPage(
-            {
-                title: "404",
-                subtitle: "Не туда попали",
-            },
-            "div",
-            "container fluid"
-        ),
-    },
-];
+const router = createRouter("#app");
+export { router };
 
-export { routes, dispatchCurrenRouteByHash };
-export type { RouteType };
+// type RouteType = {
+//     title: string;
+//     url: string;
+//     component?: Component;
+//     controller?: IController;
+// };
+//
+// const defaultRouteUrl = "/404";
+//
+// function findRouteByUrl(url: string): RouteType {
+//     let route = routes.find((i) => i.url === url);
+//
+//     if (!route) {
+//         route = findRouteByUrl(defaultRouteUrl);
+//     }
+//
+//     return route;
+// }
+//
+// function dispatchCurrenRouteByHash(callback: CallableFunction) {
+//     const hash = location.hash.substring(1);
+//     const route = findRouteByUrl(hash);
+//
+//     if (typeof callback === "function") {
+//         callback(route);
+//     }
+// }
+//
+// export { routes, dispatchCurrenRouteByHash };
+// export type { RouteType };

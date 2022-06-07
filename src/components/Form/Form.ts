@@ -72,15 +72,6 @@ export class Form extends Component<PropsType> {
         return formFields;
     }
 
-    inject() {
-        return [
-            {
-                selector: "[data-fields]",
-                component: this.getFields(),
-            },
-        ];
-    }
-
     render() {
         return template(this.props);
     }

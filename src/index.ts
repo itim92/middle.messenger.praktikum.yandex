@@ -1,38 +1,45 @@
 import { Header } from "./components/Header";
-import { routes, dispatchCurrenRouteByHash, RouteType } from "./router";
-import { render } from "./templator";
+import { renderComponent } from "@/lib/templator";
+import routes from "@/router/routes";
+import { router } from "@/router";
 
-const appElement = document.getElementById("app");
-
-function onRouteChange(route: RouteType) {
-    if (!appElement) {
-        return false;
-    }
-    let component;
-
-    if (route.controller) {
-        component = route.controller.view;
-    } else {
-        component = route.component;
-    }
-
-    if (!component) {
-        return;
-    }
-
-    render(appElement, component);
-
-    return true;
-}
-
-window.addEventListener("hashchange", (e) => {
-    e.preventDefault();
-    dispatchCurrenRouteByHash(onRouteChange);
-});
+router.start();
 
 const headerElement = document.getElementById("header");
 if (headerElement) {
-    render(headerElement, new Header({ routes }));
+    renderComponent(headerElement, new Header({ routes }));
 }
-
-dispatchCurrenRouteByHash(onRouteChange);
+// const appElement = document.getElementById("app");
+//
+// function onRouteChange(route: RouteType) {
+//     if (!appElement) {
+//         return false;
+//     }
+//     let component;
+//
+//     if (route.controller) {
+//         component = route.controller.view;
+//     } else {
+//         component = route.component;
+//     }
+//
+//     if (!component) {
+//         return;
+//     }
+//
+//     render(appElement, component);
+//
+//     return true;
+// }
+//
+// window.addEventListener("hashchange", (e) => {
+//     e.preventDefault();
+//     dispatchCurrenRouteByHash(onRouteChange);
+// });
+//
+// const headerElement = document.getElementById("header");
+// if (headerElement) {
+//     render(headerElement, new Header({ routes }));
+// }
+//
+// dispatchCurrenRouteByHash(onRouteChange);
