@@ -4,7 +4,7 @@ function $parcel$export(e, n, v, s) {
 
 $parcel$export(module.exports, "parse", () => $dad363e19ed00b2e$export$98e6a39c04603d36);
 function $510fd552298dd2bb$export$ccbedd67ef6e9417(code) {
-    return /^([_\n\w\d\sа-я?!.,{}()[\]'"]+|{[_\n\w\d\sа-я?!.,{}()[\]'"]+}\s+)</i.test(code.trim());
+    return /^([_\n\w\d\sа-я?!.,:{}()[\]'"]+|{[_\n\w\d\sа-я?!.,:{}()[\]'"]+}\s+)</i.test(code.trim());
 }
 function $510fd552298dd2bb$export$50ea80fc27f8dad5(code) {
     return /^<[a-z]/i.test(code);
@@ -177,7 +177,7 @@ class $d5236a2f272f8223$export$2e2bcd8739ae039 {
         ];
     }
     parseTextNode(code) {
-        const re = /^([_\n\w\d\sа-я?!.,{}()[\]'"]+|{[_\n\w\d\sа-я?!.,{}()[\]'"]+}\s+)</i;
+        const re = /^([_\n\w\d\sа-я?!.,:{}()[\]'"]+|{[_\n\w\d\sа-я?!.,:{}()[\]'"]+}\s+)</i;
         const matches = code.match(re);
         const token = this.createToken(this.TOKEN_TYPES.TEXT_NODE);
         if (!matches) return [

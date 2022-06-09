@@ -42,6 +42,8 @@ export class Component<
         props: ComponentProps = {} as ComponentProps,
         tagName?: string
     ) {
+        console.trace(props);
+        props = props ?? {};
         this._eventBus = new EventBus();
         this._meta = {
             props,

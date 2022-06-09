@@ -1,18 +1,12 @@
-import { Component } from "../../../templator";
-import template from "./template.hbs";
-import { Avatar } from "../../../components/Avatar";
+import template from "./template.tpl";
+import { Component } from "@/lib/templator";
 
-export class BaseAccountPage extends Component {
-    inject() {
-        return [
-            {
-                selector: "[data-avatar]",
-                component: new Avatar({ name: "Сергей" }),
-            },
-        ];
-    }
+type PropsType = {
+    goToEdit: CallableFunction;
+};
 
+export class Base extends Component<PropsType> {
     render() {
-        return template(this.props);
+        return template({ ...this.props });
     }
 }

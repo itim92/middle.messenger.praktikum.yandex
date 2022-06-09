@@ -148,7 +148,7 @@ export default class Tokenizer {
 
     parseTextNode(code: string): [TokenType, string] {
         const re =
-            /^([_\n\w\d\sа-я?!.,{}()[\]'"]+|{[_\n\w\d\sа-я?!.,{}()[\]'"]+}\s+)</i;
+            /^([_\n\w\d\sа-я?!.,:{}()[\]'"]+|{[_\n\w\d\sа-я?!.,:{}()[\]'"]+}\s+)</i;
         const matches = code.match(re);
 
         const token = this.createToken(this.TOKEN_TYPES.TEXT_NODE);

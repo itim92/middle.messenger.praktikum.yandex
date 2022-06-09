@@ -1,5 +1,5 @@
 export function isTextNode(code: string) {
-    return /^([_\n\w\d\sа-я?!.,{}()[\]'"]+|{[_\n\w\d\sа-я?!.,{}()[\]'"]+}\s+)</i.test(
+    return /^([_\n\w\d\sа-я?!.,:{}()[\]'"]+|{[_\n\w\d\sа-я?!.,:{}()[\]'"]+}\s+)</i.test(
         code.trim()
     );
 }
