@@ -5,7 +5,7 @@ import elements from "./fields";
 
 import {
     FormElementEventHandlerType,
-    FormEventHandlerType,
+    FormEventHandlerType
 } from "@/components/Form/types";
 import { validatorService } from "@/services/Validator";
 import { FormElementEventPayloadType } from "@/components/Form/types/form-element-event-handler";
@@ -76,11 +76,12 @@ export class LoginPage extends Component<PropsType> {
             onSubmit: FormEventHandlerType;
             onFieldBlur: FormElementEventHandlerType;
         };
+
         return template({
             elements,
             submit: "Авторизоваться",
             onSubmit: (event, payload) => this.onSubmit(event, payload),
-            onFieldBlur: (event, payload) => this.onFieldBlur(event, payload),
+            onFieldBlur: (event, payload) => this.onFieldBlur(event, payload)
         } as TemplateProps);
     }
 }

@@ -96,7 +96,7 @@ class $d5236a2f272f8223$export$2e2bcd8739ae039 {
                 this.tokens.push(token);
                 lastToken = token;
             } else {
-                console.log(this.tokens);
+                console.error(this.tokens);
                 throw new Error(code);
             }
         }
@@ -302,7 +302,6 @@ class $8aa66dcdd6756aa6$export$2e2bcd8739ae039 {
         let value = token.value.trim();
         if ($510fd552298dd2bb$export$8225720af8e691a0(value)) value = value.replace(/({ ?[a-z._\s\d()]+ ?})/i, "$$$1");
         else if ($510fd552298dd2bb$export$5881d9cf76a52d8(value)) return this.createFragmentNode(token);
-        // console.log(value);
         value = `\`${value}\``;
         return {
             type: $295f508c3bfe10ef$export$accaa52ddae3fe58.TEXT_NODE,
@@ -402,7 +401,6 @@ function $dad363e19ed00b2e$export$98e6a39c04603d36(raw) {
         const templateCode = codeGenerator.generate();
         code = code.replace(template.key ?? "", templateCode);
     }
-    console.log(code);
     return code;
 } /**
  * text node

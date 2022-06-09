@@ -101,7 +101,6 @@ export default class Tree {
             return this.createFragmentNode(token);
         }
 
-        // console.log(value);
         value = `\`${value}\``;
 
         return {

@@ -20,7 +20,6 @@ export function parse(raw: string) {
         code = code.replace(template.key ?? "", templateCode);
     }
 
-    console.log(code);
     return code;
 }
 

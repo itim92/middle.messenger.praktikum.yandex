@@ -5,6 +5,8 @@ export default function template({
     submit,
     onSubmit
 }) {
+    console.log("asd", getFields());
+
     const renderField = ({
         element,
         onFocus,

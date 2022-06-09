@@ -6,10 +6,6 @@ export default function template({
     onFieldBlur,
     onSubmit
 }) {
-    console.log({
-        onFieldBlur,
-        onSubmit
-    })
     return (
         <>
             <div className="page-login">

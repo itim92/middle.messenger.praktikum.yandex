@@ -51,7 +51,7 @@ export default class Tokenizer {
                 this.tokens.push(token);
                 lastToken = token;
             } else {
-                console.log(this.tokens);
+                console.error(this.tokens);
                 throw new Error(code);
             }
         }
