@@ -11,16 +11,16 @@ if (headerElement) {
 }
 // const appElement = document.getElementById("app");
 //
-// function onRouteChange(route: RouteType) {
+// function onRouteChange(Route: RouteType) {
 //     if (!appElement) {
 //         return false;
 //     }
 //     let component;
 //
-//     if (route.controller) {
-//         component = route.controller.view;
+//     if (Route.controller) {
+//         component = Route.controller.view;
 //     } else {
-//         component = route.component;
+//         component = Route.component;
 //     }
 //
 //     if (!component) {

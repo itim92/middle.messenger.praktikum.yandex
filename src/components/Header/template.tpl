@@ -1,4 +1,4 @@
-import { Link } from "@/router/Link";
+import { Link } from "@/router/components/Link";
 
 export default function template({ routes }) {
     const li = ({

@@ -1,5 +1,5 @@
 import routes from "./routes";
-import { Router } from "./router";
+import { Router } from "./Router";
 
 export function createRouter(selector: string) {
     const root = document.querySelector(selector);
@@ -34,21 +34,21 @@ export { router };
 // const defaultRouteUrl = "/404";
 //
 // function findRouteByUrl(url: string): RouteType {
-//     let route = routes.find((i) => i.url === url);
+//     let Route = routes.find((i) => i.url === url);
 //
-//     if (!route) {
-//         route = findRouteByUrl(defaultRouteUrl);
+//     if (!Route) {
+//         Route = findRouteByUrl(defaultRouteUrl);
 //     }
 //
-//     return route;
+//     return Route;
 // }
 //
 // function dispatchCurrenRouteByHash(callback: CallableFunction) {
 //     const hash = location.hash.substring(1);
-//     const route = findRouteByUrl(hash);
+//     const Route = findRouteByUrl(hash);
 //
 //     if (typeof callback === "function") {
-//         callback(route);
+//         callback(Route);
 //     }
 // }
 //

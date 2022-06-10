@@ -1,4 +1,4 @@
-import { Route, RouterComponent } from "../route";
+import { Route, RouterComponent } from "../Route";
 
 export class Router {
     private static __instance: Router;
@@ -43,9 +43,7 @@ export class Router {
     }
 
     start() {
-        console.log("start");
         window.addEventListener("popstate", () => {
-            console.log("onroute");
             this._onRoute(window.location.pathname);
         });
 

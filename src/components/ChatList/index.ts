@@ -1,28 +1,21 @@
-import { Component } from "../../templator";
-import template from "./template.hbs";
-import chats from "../../pages/Chat/json/chats.json";
-import { ChatListItem } from "./ChatListItem";
+import { Component } from "@/lib/templator";
+import template from "./template.tpl";
+import { ChatListItemType } from "@/components/ChatList/types/ChatListItemType";
 
-export class ChatList extends Component {
-    get chatListItems() {
-        const chatListItems = [];
-        for (const item of chats) {
-            chatListItems.push(new ChatListItem(item));
-        }
+// {
+//     "username": "Светлана",
+//     "lastMessage": {
+//     "datetime": "15:04",
+//         "message": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. At et obcaecati officia saepe veritatis? Ad, non, veritatis! Aspernatur consequatur doloribus id magnam officiis suscipit voluptate? Dolorem facere quas quasi voluptates."
+// }
+// },
 
-        return chatListItems;
-    }
+type Props = {
+    chats: ChatListItemType[];
+};
 
-    inject() {
-        return [
-            {
-                selector: "[data-chat-list-items]",
-                component: this.chatListItems,
-            },
-        ];
-    }
-
+export class ChatList extends Component<Props> {
     render() {
-        return template({ ...this.props });
+        return template({ ...this.props});
     }
 }

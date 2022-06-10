@@ -1,6 +1,6 @@
 import "./styles.less";
-import template from "./template.hbs";
-import { Component } from "../../templator";
+import template from "./template.tpl";
+import { Component } from "@/lib/templator";
 import { Avatar } from "../../components/Avatar";
 import { ChatList } from "../../components/ChatList";
 import { ChatTrack } from "../../components/ChatTrack";
@@ -98,6 +98,6 @@ export class ChatPage extends Component {
     }
 
     render() {
-        return template(this.props);
+        return template({ chats, track });
     }
 }

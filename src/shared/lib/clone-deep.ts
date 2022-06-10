@@ -1,3 +1,4 @@
+
 function cloneDeepEtalon<T extends object = object>(obj: T) {
     return (function _cloneDeep(
         item: T
@@ -23,8 +24,7 @@ function cloneDeepEtalon<T extends object = object>(obj: T) {
         // Handle:
         // * Array
         if (item instanceof Array) {
-            let copy = [];
-
+            const copy: Array<unknown> = [];
             item.forEach((_, i) => (copy[i] = _cloneDeep(item[i])));
 
             return copy;
@@ -33,8 +33,7 @@ function cloneDeepEtalon<T extends object = object>(obj: T) {
         // Handle:
         // * Set
         if (item instanceof Set) {
-            let copy = new Set();
-
+            const copy = new Set();
             item.forEach((v) => copy.add(_cloneDeep(v)));
 
             return copy;
@@ -43,8 +42,7 @@ function cloneDeepEtalon<T extends object = object>(obj: T) {
         // Handle:
         // * Map
         if (item instanceof Map) {
-            let copy = new Map();
-
+            const copy = new Map();
             item.forEach((v, k) => copy.set(k, _cloneDeep(v)));
 
             return copy;
@@ -53,7 +51,7 @@ function cloneDeepEtalon<T extends object = object>(obj: T) {
         // Handle:
         // * Object
         if (item instanceof Object) {
-            let copy: object = {};
+            const copy: Record<string | number | symbol, unknown> = {};
 
             // Handle:
             // * Object.symbol

@@ -1,9 +1,10 @@
 import { ErrorPage } from "@/pages/Error";
-import { RouterComponent } from "./route";
+import { RouterComponent } from "./Route";
 import { Component } from "@/lib/templator";
 import { LoginPage } from "@/pages/Login";
 import { RegisterPage } from "@/pages/Register";
 import { AccountPage } from "@/pages/Account";
+import { ChatPage } from "@/pages/Chat";
 
 type RouteObjectType = {
     title: string;
@@ -39,7 +40,18 @@ const routes: RouteObjectType[] = [
             component: AccountPage as typeof Component,
             props: {
                 // isEdit: false,
-                className: "container",
+                className: "container fluid",
+            },
+        },
+    },
+    {
+        title: "Чат",
+        url: "/chat",
+        component: {
+            component: ChatPage as typeof Component,
+            props: {
+                // isEdit: false,
+                className: "container fluid",
             },
         },
     },
