@@ -1,5 +1,6 @@
 import { userController } from "@/controllers/UserController";
 import { Avatar } from "@/components/Avatar";
+import { authController } from "@/controllers/AuthController/index.js";
 
 const labels = {
     id: "Идентификатор",
@@ -13,7 +14,7 @@ const labels = {
 }
 
 export default function template({goToEdit, user}) {
-    const logout = () => userController.logout();
+    const logout = () => authController.logout();
 
     return (
         <>
