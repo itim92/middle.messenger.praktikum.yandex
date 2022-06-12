@@ -1,5 +1,5 @@
-import { httpTransportService } from "@/services/api/HttpTransport";
-import { BaseServiceAbstract } from "@/services/api/BaseServiceAbstract";
+import { httpTransportService } from "@/services/Api/HttpTransport";
+import { BaseServiceAbstract } from "@/services/Api/BaseServiceAbstract";
 
 class UserService extends BaseServiceAbstract {
     readonly API_ENDPOINT = "https://ya-praktikum.tech/api/v2";
