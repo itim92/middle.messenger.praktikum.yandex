@@ -1,0 +1,7 @@
+/dist
+/.github
+/.parcel-cache
+**/*.hbs
+**/*.min.js
+/node_modules
+**/*.tpl

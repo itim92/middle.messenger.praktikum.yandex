@@ -1,0 +1,13 @@
+{
+  "name": "temaplator-parser",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "type": "commonjs",
+  "author": "is.timka <i.timka92@yandex.ru>",
+  "license": "ISC",
+  "dependencies": {},
+  "engines": {
+    "parcel": "2.x"
+  }
+}

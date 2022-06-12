@@ -1,133 +1,137 @@
-
 .page-account-wrapper {
-  display: flex;
-  flex-direction: column;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
 }
 
 .page-title {
-  font-size: 16px;
-  padding: 0 0 0 82px;
+    font-size: 16px;
+    padding: 0 0 0 82px;
 }
 
 .page-account {
-  border: 1px solid #E5E5E5;
-  border-radius: 9px;
-  margin: 15px 0 20px 0;
-  padding: 20px 30px 20px 0;
+    border: 1px solid #e5e5e5;
+    border-radius: 9px;
+    margin: 15px 0 20px 0;
+    padding: 20px 30px 20px 0;
 
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: stretch;
-
-  .back-button {
-    width: 82px;
     display: flex;
-    align-items: center;
+    flex-direction: row;
     justify-content: center;
-    order: 1;
+    align-items: stretch;
 
-    text-decoration: none;
-    font-size: 32px;
-  }
-
-  .content {
-    width: 100%;
-    order: 2;
-
-    min-height: 540px;
-
-    padding: 20px 50px;
-    border-left: 1px solid rgba(0, 0, 0, 0.1);
-
-    display: flex;
-    align-items: center;
-
-
-    .avatar {
-      display: flex;
-      align-items: center;
-
-      .user-name {
-        margin-left: 20px;
-        font-size: 25px;
-        color: #434A53;
-      }
-
-      .user-photo {
-        display: flex;
-        border-radius: 50%;
-        overflow: auto;
-
-        background: rgba(0, 0, 0, 0.1);
-
-        width: 90px;
-        height: 90px;
-
-        padding: 0 13px;
-
-        img {
-          width: 100%;
-        }
-      }
-    }
-
-    .info {
-      padding: 0 0 0 50px;
-
-      ul.fields {
-        margin: 0;
-        padding: 0;
-        list-style: none;
-
-        font-size: 16px;
-
-        li {
-          min-height: 40px;
-          padding: 10px 0 7px;
-          display: flex;
-
-          .label {
-            color: #838E9B;
-            min-width: 200px;
-          }
-        }
-      }
-
-      ul.links {
-        margin: 40px 0 0 0;
-        padding: 0;
-        list-style: none;
-
-        font-size: 16px;
-
-        li {
-          padding: 5px 0 3px 0;
-        }
-      }
-    }
-  }
-
-  &.is-edited {
-    .content {
-      ul.fields {
-        input[type="text"] {
-          padding: 0 0 3px 0;
-          border-top: none;
-          border-left: none;
-          border-right: none;
-          border-radius: 0;
-          outline: none;
-        }
-      }
-
-      ul.links {
+    .back-button {
+        width: 82px;
         display: flex;
         align-items: center;
-        li {
-          margin: 0 20px 0 0;
-        }
-      }
+        justify-content: center;
+        order: 1;
+
+        text-decoration: none;
+        font-size: 32px;
     }
-  }
+
+    .content {
+        width: 100%;
+        order: 2;
+
+        min-height: 540px;
+
+        padding: 20px 50px;
+        border-left: 1px solid rgba(0, 0, 0, 0.1);
+
+        display: flex;
+        align-items: center;
+
+        .avatar {
+            display: flex;
+            align-items: center;
+
+            .user-name {
+                margin-left: 20px;
+                font-size: 25px;
+                color: #434a53;
+            }
+
+            .user-photo {
+                display: flex;
+                border-radius: 50%;
+                overflow: auto;
+
+                background: rgba(0, 0, 0, 0.1);
+
+                width: 90px;
+                height: 90px;
+
+                padding: 0 13px;
+
+                img {
+                    width: 100%;
+                }
+            }
+        }
+
+        .block-title {
+            font-size: 24px;
+            padding: 0 0 30px 0;
+        }
+
+        .account-form {
+            padding: 0 0 30px 0;
+
+            &:last-child {
+                padding: 0;
+            }
+        }
+
+        .info {
+            padding: 0 0 0 50px;
+
+            ul.fields {
+                margin: 0;
+                padding: 0;
+                list-style: none;
+
+                font-size: 16px;
+
+                li {
+                    min-height: 40px;
+                    padding: 10px 0 7px;
+                    display: flex;
+
+                    .label {
+                        color: #838e9b;
+                        min-width: 200px;
+                    }
+                }
+            }
+
+            ul.links {
+                margin: 0;
+                padding: 0;
+                list-style: none;
+
+                font-size: 16px;
+
+                li {
+                    padding: 5px 0 3px 0;
+                }
+            }
+        }
+    }
+
+    &.is-edited {
+        .content {
+            ul.links {
+                display: flex;
+                align-items: center;
+
+                li {
+                    flex-basis: 100%;
+                    text-align: center;
+                    margin: 0 20px 0 0;
+                }
+            }
+        }
+    }
 }

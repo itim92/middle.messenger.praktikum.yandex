@@ -2,17 +2,23 @@
 
 [link on netlify](https://magnificent-malabi-11b0a9.netlify.app/)
 
+## Второй спринт
+Pull request: https://github.com/itim92/middle.messenger.praktikum.yandex/pull/2
+
 ## Описание
+
 Простой веб-чат с открытым исходным кодом.
 
 ## Установка
 
 Установить проект очень просто
-- `npm install` — установка стабильной версии,
-- `npm run dev` — запуск версии для разработчика,
-- `npm run build` — сборка prod версии.
+
+-   `npm install` — установка стабильной версии,
+-   `npm run dev` — запуск версии для разработчика,
+-   `npm run build` — сборка prod версии.
 
 ## Прототипы дизайна
+
 https://www.figma.com/file/cGUJmLwMthVXhc3MJqcAC0/Untitled?node-id=9%3A261
 
 ### **Команда**

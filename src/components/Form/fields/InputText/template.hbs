@@ -1,0 +1,8 @@
+<label class="form-element">
+    <div class="form-element-label">{{ element.label }}</div>
+    <input type="{{ element.type }}" value="{{ currentValue }}" name="{{ element.name }}"
+           class="{{# if element.errorMessage }} with-error{{/if}}">
+    {{# if element.errorMessage }}
+        <div class="form-element-error">{{ element.errorMessage }}</div>
+    {{/if}}
+</label>

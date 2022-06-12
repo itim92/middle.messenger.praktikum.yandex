@@ -1,0 +1,7 @@
+/dist
+/.github
+/.parcel-cache
+**/*.hbs
+/node_modules
+**/*.tpl
+/src/pages/Error/template.tpl
