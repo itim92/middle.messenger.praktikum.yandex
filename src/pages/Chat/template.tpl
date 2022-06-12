@@ -1,34 +1,51 @@
-import { Avatar } from "../../components/Avatar";
-import { ChatTrack } from "../../components/ChatTrack";
 import { ChatList } from "../../components/ChatList";
+import ChatCreate from "@/components/ChatCreate";
+import Chat from "@/components/Chat";
+import { Link } from "@/router";
 
 export default function template({
-    activeChat,
     chats,
-    track
+    currentChat,
+    onFindedUserClick,
+    currentChatUsers
 }) {
+
+    const trackWrapperData = {
+        chat: currentChat,
+        onFindedUserClick,
+        currentChatUsers
+    };
+
+    const accountLink = {
+        url: "/settings",
+        title: "Профиль"
+    };
 
     return (
         <>
             <div className="page-chat-wrapper">
-                <div className="page-header">
-                    <div className="profile-link"><a href="#">Профиль</a></div>
-                    <div className="chat-search-wrapper">
-                        <input type="text" placeholder="Поиск" />
-                    </div>
-                </div>
+                <Link to={accountLink.url} title={accountLink.title} />
                 <div className="page-chat">
-                    <ChatList chats={chats} />
-                    {drawTrackWrapper(track)}
+                    <div className="left-sidebar">
+                        <ChatCreate fieldValue={""} />
+                        <ChatList chats={chats} currentChat={currentChat} />
+                    </div>
+                    {drawTrackWrapper(trackWrapperData)}
                 </div>
             </div>
-
-        </>
-    );
+        </>);
 }
 
-function drawTrackWrapper(track) {
-    return [1].map(() => track ? messageTrack(track) : noActiveChat());
+function drawTrackWrapper({
+    chat,
+    onFindedUserClick,
+    currentChatUsers
+}) {
+    return [1].map(() => chat ? messageTrack({
+        chat,
+        onFindedUserClick,
+        currentChatUsers
+    }) : noActiveChat());
 }
 
 function noActiveChat() {
@@ -41,24 +58,15 @@ function noActiveChat() {
     );
 }
 
-function messageTrack(track) {
-    const name = "Светлана";
+function messageTrack({
+    chat,
+    onFindedUserClick,
+    currentChatUsers
+}) {
     return (
         <>
-            <div className="content">
-                <div className="header"><Avatar name={name} /></div>
-                <ChatTrack track={track} />
-                <div className="new-message-form">
-                    <span className="btn attach">Прикрепить</span>
-                    <div className="new-message-input-wrapper">
-                        <input className="new-message-input" type="text" name="message" />
-                        <div className="new-message-input-error">
-                            Поле для сообщения не может быть пустым
-                        </div>
-                    </div>
-                    <span className="btn send">Отправить</span>
-                </div>
-            </div>
+            <Chat className="content" chat={chat} currentChatUsers={currentChatUsers}
+                  onFindedUserClick={onFindedUserClick} />
         </>
     );
 }

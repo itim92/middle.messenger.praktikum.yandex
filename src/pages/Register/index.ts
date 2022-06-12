@@ -7,6 +7,8 @@ import {
 } from "@/components/Form/types";
 import template from "./template.tpl";
 import elements from "./fields";
+import { SignUpParams } from "@/services/api/AuthService/types";
+import { authController } from "@/controllers/AuthController";
 
 type PropsType = {
     elements: FormElementType[];
@@ -17,16 +19,25 @@ type PropsType = {
 
 export class RegisterPage extends Component<PropsType> {
     onSubmit: FormEventHandlerType = (_event: FormDataEvent, { values }) => {
+        const fieldsErrorsStack = [];
         for (const key in values) {
             const value = values[key];
             const element = elements.find((e) => e.name === key);
 
             if (element) {
-                element.errorMessage = this.validateField(
-                    key,
-                    value?.toString()
-                );
+                const errorMessage = this.validateField(key, value?.toString());
+                element.errorMessage = errorMessage;
+                fieldsErrorsStack.push(Boolean(errorMessage));
             }
+        }
+
+        const isFormHasError = fieldsErrorsStack.some((i) => i);
+        if (!isFormHasError) {
+            authController.signUp(values as SignUpParams).then((result) => {
+                if (result !== true && typeof result === "string") {
+                    alert(result);
+                }
+            });
         }
 
         this.setProps({ elements });
@@ -123,7 +134,6 @@ export class RegisterPage extends Component<PropsType> {
             onSubmit: FormEventHandlerType;
             onFieldBlur: FormElementEventHandlerType;
         };
-
 
         return template({
             elements,

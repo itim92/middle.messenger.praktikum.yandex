@@ -1,7 +1,9 @@
+import { Avatar } from "@/components/Avatar";
+
 export default function template({
-    username,
-    lastMessage,
+    chat,
     noAvatarImage,
+    onClick,
     isActive = false
 }) {
 
@@ -9,14 +11,14 @@ export default function template({
 
     return (
         <>
-            <div className={itemClassName}>
-                <div className="avatar"><img src={noAvatarImage} alt="no-avatar" /></div>
+            <div className={itemClassName} onClick={onClick}>
+                <Avatar src={chat.avatar} width={44} />
                 <div className="item-container">
                     <div className="header">
-                        <div className="username">{username}</div>
-                        <div className="datetime">{lastMessage.datetime}</div>
+                        <div className="username">{chat.title}</div>
+                        <div className="datetime">{chat?.lastMessage?.datetime}</div>
                     </div>
-                    <div className="message">{lastMessage.message}</div>
+                    <div className="message">{chat?.lastMessage?.message}</div>
                 </div>
             </div>
         </>

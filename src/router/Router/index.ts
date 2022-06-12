@@ -1,4 +1,5 @@
-import { Route, RouterComponent } from "../Route";
+import { Route } from "../Route";
+import { RouteComponent, RouterMiddleware } from "../types";
 
 export class Router {
     private static __instance: Router;
@@ -11,9 +12,15 @@ export class Router {
 
     private defaultRoute: Route | null = null;
 
-    constructor(root: HTMLElement) {
+    private routeMiddlewares: RouterMiddleware[] = [];
+
+    constructor(root?: HTMLElement) {
         if (Router.__instance) {
             return Router.__instance;
+        }
+
+        if (!root) {
+            throw Error("Первая инициализация должна быть с root элементом");
         }
 
         this.root = root;
@@ -23,7 +30,11 @@ export class Router {
         Router.__instance = this;
     }
 
-    useAsDefault(view: RouterComponent) {
+    addMiddleware(middleware: RouterMiddleware) {
+        this.routeMiddlewares.push(middleware);
+    }
+
+    useAsDefault(view: RouteComponent) {
         this.defaultRoute = new Route({
             pathname: "*",
             view,
@@ -31,7 +42,7 @@ export class Router {
         });
     }
 
-    use(pathname: string, view: RouterComponent) {
+    use(pathname: string, view: RouteComponent) {
         const route = new Route({
             pathname,
             view,
@@ -52,16 +63,22 @@ export class Router {
 
     _onRoute(pathname: string) {
         const route = this.getRoute(pathname);
-        if (!route) {
+        const middlewaresResult = this.routeMiddlewares.every((m) =>
+            m({ pathname, router: this })
+        );
+
+        if (!route || !middlewaresResult) {
             return;
         }
 
-        if (this._currentRoute) {
-            this._currentRoute.leave();
-        }
+        setTimeout(() => {
+            if (this._currentRoute) {
+                this._currentRoute.leave();
+            }
 
-        this._currentRoute = route;
-        route.render();
+            this._currentRoute = route;
+            route.render();
+        });
     }
 
     go(pathname: string) {

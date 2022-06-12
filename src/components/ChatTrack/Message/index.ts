@@ -1,6 +1,7 @@
 import { Component } from "@/lib/templator";
 import { MessageModel } from "./model";
 import template from "./template.tpl";
+import store from "@/store";
 
 type Props = {
     message: MessageModel;
@@ -8,6 +9,7 @@ type Props = {
 
 export class Message extends Component<Props> {
     render() {
-        return template({ ...this.props.message });
+        const { user } = store.getState();
+        return template({ ...this.props, user });
     }
 }

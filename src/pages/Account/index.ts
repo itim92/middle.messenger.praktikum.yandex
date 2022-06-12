@@ -9,7 +9,8 @@ import {
 import { validatorService } from "@/services/Validator";
 
 type PropsType = {
-    elements: FormElementType[];
+    profileFormElements: FormElementType[];
+    passwordFormElements: FormElementType[];
     onSubmit?: FormEventHandlerType;
     onFieldChange?: FormElementEventHandlerType;
     onFieldFocus?: FormElementEventHandlerType;
@@ -17,40 +18,93 @@ type PropsType = {
     isEdit: boolean;
 };
 
-import accountData from "./data";
-import elements from "./fields";
+import profileFormElements from "./fields/profile-fields";
+import avatarFormElements from "./fields/avatar-fields";
+import passwordFormElements from "./fields/password-fields";
 
-elements.forEach((element) => {
-    const name = element.name;
-    element.value = (accountData as Record<string, string>)[name] ?? "";
-});
+import { userController } from "@/controllers/UserController";
+import { ProfileParams } from "@/services/api/UserService/types";
 
 export class AccountPage extends Component<PropsType> {
-    // get form() {
-    //     return new Form({
-    //         submit: "Сохранить",
-    //         elements: this.props.elements,
-    //         onSubmit: this.props.onSubmit,
-    //         onFieldFocus: this.props.onFieldFocus,
-    //         onFieldBlur: this.props.onFieldBlur,
-    //         onFieldChange: this.props.onFieldChange,
-    //     });
-    // }
-
-    onSubmit: FormEventHandlerType = (_event: FormDataEvent, { values }) => {
+    onSubmitChangePassword: FormEventHandlerType = (
+        _event: FormDataEvent,
+        { values }
+    ) => {
+        const fieldsErrorsStack = [];
         for (const key in values) {
             const value = values[key];
-            const element = elements.find((e) => e.name === key);
+            const element = passwordFormElements.find((e) => e.name === key);
+            element.value = value?.toString();
 
             if (element) {
-                element.errorMessage = this.validateField(
-                    key,
-                    value?.toString()
-                );
+                const errorMessage = this.validateField(key, value?.toString());
+                element.errorMessage = errorMessage;
+                fieldsErrorsStack.push(Boolean(errorMessage));
             }
         }
 
-        this.setProps({ elements });
+        const isFormHasError = fieldsErrorsStack.some((i) => i);
+        if (!isFormHasError) {
+            userController
+                .updatePassword(values as ProfileParams)
+                .then((result) => {
+                    if (typeof result === "string" && result != "OK") {
+                        alert(result);
+                    } else {
+                        this.setProps({ isEdit: false });
+                    }
+                });
+        }
+
+        this.setProps({ passwordFormElements });
+    };
+
+    onSubmitChangeAvatar: FormEventHandlerType = (event: FormDataEvent) => {
+        const formData = new FormData(event.target as HTMLFormElement);
+        userController.updateAvatar(formData).then((result) => {
+            if (typeof result === "string" && result != "OK") {
+                alert(result);
+            } else {
+                this.setProps({ isEdit: false });
+            }
+        });
+    };
+
+    onSubmitChangeProfile: FormEventHandlerType = (
+        _event: FormDataEvent,
+        { values }
+    ) => {
+        const fieldsErrorsStack = [];
+        for (const key in values) {
+            const value = values[key];
+            const element = profileFormElements.find((e) => e.name === key);
+            element.value = value?.toString();
+
+            if (element) {
+                const errorMessage = this.validateField(key, value?.toString());
+                if (key === "display_name" && !value) {
+                    continue;
+                }
+
+                element.errorMessage = errorMessage;
+                fieldsErrorsStack.push(Boolean(errorMessage));
+            }
+        }
+
+        const isFormHasError = fieldsErrorsStack.some((i) => i);
+        if (!isFormHasError) {
+            userController
+                .updateProfile(values as ProfileParams)
+                .then((result) => {
+                    if (typeof result === "string") {
+                        alert(result);
+                    } else {
+                        this.setProps({ isEdit: false });
+                    }
+                });
+        }
+
+        this.setProps({ profileFormElements });
     };
 
     onFieldChange: FormElementEventHandlerType = (
@@ -65,6 +119,17 @@ export class AccountPage extends Component<PropsType> {
         { name, value, component, element }
     ) => {
         element.errorMessage = this.validateField(name, value);
+        const errorMessage = this.validateField(name, value?.toString());
+
+        if (
+            ["display_name", "oldPassword", "newPassword"].indexOf(name) !==
+                -1 &&
+            !value
+        ) {
+            return;
+        }
+
+        element.errorMessage = errorMessage;
         component.setProps({ element });
     };
 
@@ -81,6 +146,10 @@ export class AccountPage extends Component<PropsType> {
                 break;
             case "phone":
                 errorMessage = this.validatePhone(value);
+                break;
+            case "oldPassword":
+            case "newPassword":
+                errorMessage = this.validatePassword(value);
                 break;
             case "login":
             case "nickname":
@@ -124,6 +193,12 @@ export class AccountPage extends Component<PropsType> {
         return result ? "" : "Телефон не валидный";
     }
 
+    validatePassword(value: string): string {
+        const result = validatorService.isValidPassword(value);
+
+        return result ? "" : "Пароль не валидный";
+    }
+
     goToEdit() {
         this.setProps({ isEdit: true });
     }
@@ -134,10 +209,13 @@ export class AccountPage extends Component<PropsType> {
 
     render() {
         type TemplateProps = {
-            name: string;
             submit: string;
-            elements: FormElementType[];
-            onSubmit: FormEventHandlerType;
+            profileFormElements: FormElementType[];
+            avatarFormElements: FormElementType[];
+            passwordFormElements: FormElementType[];
+            onSubmitChangeProfile: FormEventHandlerType;
+            onSubmitChangeAvatar: FormEventHandlerType;
+            onSubmitChangePassword: FormEventHandlerType;
             onFieldBlur: FormElementEventHandlerType;
             onFieldChange: FormElementEventHandlerType;
             goToEdit: CallableFunction;
@@ -146,10 +224,16 @@ export class AccountPage extends Component<PropsType> {
 
         return template({
             isEdit: this.props.isEdit,
-            name: "Сергей",
             submit: "Сохранить",
-            elements,
-            onSubmit: (event, payload) => this.onSubmit(event, payload),
+            profileFormElements,
+            avatarFormElements,
+            passwordFormElements,
+            onSubmitChangeProfile: (event, payload) =>
+                this.onSubmitChangeProfile(event, payload),
+            onSubmitChangeAvatar: (event, payload) =>
+                this.onSubmitChangeAvatar(event, payload),
+            onSubmitChangePassword: (event, payload) =>
+                this.onSubmitChangePassword(event, payload),
             onFieldBlur: (event, payload) => this.onFieldBlur(event, payload),
             onFieldChange: (event, payload) =>
                 this.onFieldChange(event, payload),

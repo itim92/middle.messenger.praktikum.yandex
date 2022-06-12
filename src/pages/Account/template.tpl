@@ -1,46 +1,69 @@
-import {Avatar} from "@/components/Avatar";
-import {Edit} from "@/pages/Account/Edit";
-import {Base} from "@/pages/Account/Base";
-
+import Edit from "@/pages/Account/Edit";
+import Base from "@/pages/Account/Base";
+import { Link } from "@/router";
 
 /**
  * <Base/> такой синтаксис вызывает бесконечный цикл, нужно использовать <Base />
  */
 
 
-export default function template({isEdit, name, elements, submit, onSubmit, onFieldBlur, onFieldChange, goToEdit, cancelEdit}) {
+export default function template({
+    isEdit,
+    name,
+    profileFormElements,
+    avatarFormElements,
+    passwordFormElements,
+    submit,
+    onSubmitChangeProfile,
+    onSubmitChangePassword,
+    onSubmitChangeAvatar,
+    onFieldBlur,
+    onFieldChange,
+    goToEdit,
+    cancelEdit
+}) {
     const renderInfo = () => {
         return [1].map(() => isEdit ? renderEdit() : renderBase());
-    }
+    };
+
+    const messengerLink = {
+        url: "/messenger",
+        title: "Мессенджер"
+    };
 
     const renderBase = () => {
         return (
             <>
                 <Base goToEdit={goToEdit} />
             </>
-        )
-    }
+        );
+    };
 
     const renderEdit = () => {
         return (
             <>
-                <Edit submit={submit} elements={elements} onSubmit={onSubmit} onFieldBlur={onFieldBlur}
+                <Edit submit={submit}
+                      profileFormElements={profileFormElements}
+                      avatarFormElements={avatarFormElements}
+                      passwordFormElements={passwordFormElements}
+                      onSubmitChangeProfile={onSubmitChangeProfile}
+                      onSubmitChangePassword={onSubmitChangePassword}
+                      onSubmitChangeAvatar={onSubmitChangeAvatar}
+                      onFieldBlur={onFieldBlur}
                       onFieldChange={onFieldChange} cancelEdit={cancelEdit} />
             </>
-        )
-    }
+        );
+    };
     return (
         <>
             <div className="page-account-wrapper">
-                <div className="page-title">Профиль</div>
+                <Link to={messengerLink.url} title={messengerLink.title} />
                 <div className="page-account is-edited">
                     <div className="content">
-                        <Avatar name={name}/>
                         {renderInfo()}
                     </div>
-                    <a href="#" className="back-button"><span>Назад</span></a>
                 </div>
             </div>
         </>
-    )
+    );
 }

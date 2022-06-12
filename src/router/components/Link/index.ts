@@ -1,6 +1,6 @@
 import template from "./template.tpl";
 import { Component } from "@/lib/templator";
-import { router } from "@/router";
+import { Router } from "@/router";
 
 type Props = {
     to: string;
@@ -14,7 +14,7 @@ export class Link extends Component<Props> {
 
     onClick(event: MouseEvent) {
         event.preventDefault();
-        router.go(this.props.to);
+        new Router().go(this.props.to);
     }
 
     render() {

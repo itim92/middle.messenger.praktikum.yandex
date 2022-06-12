@@ -1,14 +1,14 @@
 export default function template({
-    name,
+    src,
+    width,
     noAvatarImage
 }) {
+    const avatarUrl = src ? `https://ya-praktikum.tech/api/v2/resources${src}` : noAvatarImage;
+
     return (
         <>
             <div className="avatar">
-                <div className="user-photo no-avatar">
-                    <img src={noAvatarImage} alt="no-avatar" />
-                </div>
-                <div className="user-name">{name}</div>
+                <img src={avatarUrl} width={width} alt="avatar" />
             </div>
         </>
     );

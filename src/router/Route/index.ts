@@ -1,21 +1,15 @@
-import { Component, render } from "../../lib/templator";
-
-export type RouterComponent =
-    | typeof Component
-    | {
-          component: typeof Component;
-          props?: Record<string, unknown>;
-      };
+import { Component, renderComponent } from "@/lib/templator";
+import { RouteComponent } from "@/router/types";
 
 type RouteProps = {
     pathname: string;
-    view: RouterComponent;
+    view: RouteComponent;
     root: HTMLElement;
 };
 
 export class Route {
     private readonly pathname: string;
-    private readonly view: RouterComponent;
+    private readonly view: RouteComponent;
     private readonly root: HTMLElement;
     private block?: Component;
 
@@ -48,11 +42,9 @@ export class Route {
             } else {
                 this.block = new this.view();
             }
-
-            render(this.block.element, this.root);
-            return;
         }
 
         this.block.show();
+        renderComponent(this.root, this.block);
     }
 }

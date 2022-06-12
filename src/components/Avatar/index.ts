@@ -3,7 +3,8 @@ import template from "./template.tpl";
 import noAvatarImage from "@/shared/img/user.svg";
 
 type PropsType = {
-    name: string;
+    src: string;
+    width: string;
 };
 
 export class Avatar extends Component<PropsType> {

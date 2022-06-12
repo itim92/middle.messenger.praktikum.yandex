@@ -1,12 +1,10 @@
-import { InputPassword, InputText } from "@/components/Form/fields";
+import { InputPassword, InputText, InputFile } from "@/components/Form/fields";
 
 export default function template({
     getFields,
     submit,
     onSubmit
 }) {
-    console.log("asd", getFields());
-
     const renderField = ({
         element,
         onFocus,
@@ -17,6 +15,8 @@ export default function template({
         switch (element.type) {
             case "password":
                 Component = InputPassword;
+            case "file":
+                Component = InputFile;
             case "text":
             default:
                 Component = InputText;

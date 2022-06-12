@@ -1,14 +1,15 @@
 import { Component } from "@/lib/templator";
 import template from "./template.tpl";
 import { MessageModel } from "./Message/model";
+import { Message } from "@/shared/types/Message";
 
-type TrackType = {
-    date: string;
-    messages: MessageModel[];
-};
+// export type TrackType = {
+//     date: string;
+//     messages: MessageModel[];
+// };
 
 type PropsType = {
-    track: TrackType[];
+    messages: Message[];
 };
 
 export class ChatTrack extends Component<PropsType> {

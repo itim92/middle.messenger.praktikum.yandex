@@ -31,7 +31,7 @@
     justify-content: center;
     align-items: stretch;
 
-    .chat-list-wrapper {
+    .left-sidebar {
         display: flex;
         flex-direction: column;
         order: 1;
@@ -42,9 +42,36 @@
         padding: 0 10px 0 10px;
         box-sizing: content-box;
 
+        width: 300px;
         flex-basis: 300px;
         flex-grow: 0;
         flex-shrink: 0;
+    }
+
+    .chat-create-wrapper {
+        .chat-create-form {
+            display: flex;
+
+            input {
+                width: 100%;
+                margin-right: 2px;
+            }
+        }
+    }
+
+    .search-users-wrapper {
+        .search-users-form {
+            display: flex;
+            input {
+                width: 100%;
+                margin-right: 2px;
+            }
+        }
+    }
+
+
+    .chat-list-wrapper {
+        padding: 15px 0 0 0;
 
         .chat-item {
             border-top: 1px solid #f2f4f5;
@@ -130,31 +157,63 @@
             padding: 0 0 20px 0;
             border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 
-            .avatar {
+
+            .chat-info {
                 display: flex;
-                align-items: center;
+                padding: 0 0 15px 0;
 
-                .user-name {
-                    margin-left: 7px;
-                    font-size: 16px;
-                    color: #434a53;
+                .title {
+                    font-size: 22px;
+                    padding: 7px 0 0 15px;
                 }
+            }
 
-                .user-photo {
-                    display: flex;
-                    border-radius: 50%;
-                    overflow: auto;
+            .chat-users {
+                .title {
+                    font-size: 16px;
+                    padding: 0 0 7px;
+                }
+                .users {
+                    padding: 0 0 20px 0;
 
-                    background: rgba(0, 0, 0, 0.1);
+                    .chat-user-item {
+                        display: inline-block;
+                        border: 1px solid #2d7ca8;
+                        border-radius: 7px;
+                        padding: 3px 5px;
+                        margin: 0 5px 0 0;
+                        font-size: 12px;
+                        //line-height: 20px;
+                        cursor: pointer;
+                        color: #2d7ca8;
 
-                    width: 40px;
-                    height: 40px;
-
-                    img {
-                        width: 100%;
                     }
                 }
             }
+
+            .add-user-to-chat {
+                .search-result {
+                    vertical-align: top;
+
+                    .search-item {
+                        display: inline-block;
+                        border: 1px solid #2d7ca8;
+                        border-radius: 7px;
+                        padding: 7px 10px;
+                        margin: 7px 5px 0 0;
+                        font-size: 13px;
+                        //line-height: 20px;
+                        cursor: pointer;
+                        color: #2d7ca8;
+
+                        &:hover {
+                            background: rgba(45, 124, 168, 0.2);
+                        }
+                    }
+                }
+            }
+
+
         }
 
         &.empty {

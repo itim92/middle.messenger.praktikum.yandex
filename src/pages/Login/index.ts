@@ -5,10 +5,11 @@ import elements from "./fields";
 
 import {
     FormElementEventHandlerType,
-    FormEventHandlerType
+    FormEventHandlerType,
 } from "@/components/Form/types";
 import { validatorService } from "@/services/Validator";
 import { FormElementEventPayloadType } from "@/components/Form/types/form-element-event-handler";
+import { authController } from "@/controllers/AuthController";
 
 type PropsType = {
     elements: FormElementType[];
@@ -19,16 +20,31 @@ type PropsType = {
 
 export class LoginPage extends Component<PropsType> {
     onSubmit: FormEventHandlerType = (_event: FormDataEvent, { values }) => {
+        const fieldsErrorsStack = [];
         for (const key in values) {
             const value = values[key];
             const element = elements.find((e) => e.name === key);
+            element.value = value?.toString();
 
             if (element) {
-                element.errorMessage = this.validateField(
-                    key,
-                    value?.toString()
-                );
+                const errorMessage = this.validateField(key, value?.toString());
+                element.errorMessage = errorMessage;
+                fieldsErrorsStack.push(Boolean(errorMessage));
             }
+        }
+
+        const isFormHasError = fieldsErrorsStack.some((i) => i);
+        if (!isFormHasError) {
+            authController
+                .login({
+                    login: values["login"],
+                    password: values["password"],
+                })
+                .then((result) => {
+                    if (typeof result === "string") {
+                        alert("Логин и пароль неверные");
+                    }
+                });
         }
 
         this.setProps({ elements });
@@ -81,7 +97,7 @@ export class LoginPage extends Component<PropsType> {
             elements,
             submit: "Авторизоваться",
             onSubmit: (event, payload) => this.onSubmit(event, payload),
-            onFieldBlur: (event, payload) => this.onFieldBlur(event, payload)
+            onFieldBlur: (event, payload) => this.onFieldBlur(event, payload),
         } as TemplateProps);
     }
 }

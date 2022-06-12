@@ -6,7 +6,7 @@ export enum StoreEvents {
     Updated = "updated",
 }
 
-class Store extends EventBus {
+export class Store extends EventBus {
     private state: Indexed = {};
 
     public getState() {
@@ -17,7 +17,7 @@ class Store extends EventBus {
         set(this.state, path, value);
 
         // метод EventBus
-        this.emit(StoreEvents.Updated);
+        this.emit(StoreEvents.Updated, { state: this.state, path, value });
     }
 }
 

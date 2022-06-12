@@ -1,4 +1,5 @@
 import { Form } from "@/components/Form";
+import { Link } from "@/router";
 
 export default function template({
     elements,
@@ -6,6 +7,8 @@ export default function template({
     onFieldBlur,
     onSubmit
 }) {
+    const link = "/sign-up";
+    const title = `Зарегистрироваться`;
     return (
         <>
             <div className="page-login">
@@ -16,7 +19,7 @@ export default function template({
                     <Form elements={elements} submit={submit} onSubmit={onSubmit}
                           onFieldBlur={onFieldBlur} />
                     <div className="register-link">
-                        <a href="#">Нет аккаунта?</a>
+                        <Link to={link} title={title} />
                     </div>
                 </div>
             </div>

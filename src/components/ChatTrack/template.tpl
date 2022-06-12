@@ -1,34 +1,27 @@
 import { MessageDateSeparator } from "./MessageDateSeparator";
 import { Message } from "./Message";
 
-export default function template({ track }) {
+export default function template({ messages }) {
     return (
         <>
             <div className="messages">
                 <div className="messages-track">
-                    {messageTrack(track)}
+                    {messageTrack(messages)}
                 </div>
             </div>
         </>
     );
 }
 
-function messageTrack(track) {
+function messageTrack(messages) {
+    messages = messages ?? [];
     const children = [];
-    track.forEach((track) => {
+    messages.forEach((message) => {
         children.push(
             <>
-                <MessageDateSeparator date={track.date} />
+                <Message message={message} />
             </>
         );
-
-        track.messages.forEach((message) => {
-            children.push(
-                <>
-                    <Message message={message} />
-                </>
-            );
-        });
     });
 
     return children;
