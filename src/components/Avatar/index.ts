@@ -9,9 +9,14 @@ type PropsType = {
 
 export class Avatar extends Component<PropsType> {
     render() {
+        const { src } = this.props;
+        const avatarUrl = src
+            ? `https://ya-praktikum.tech/api/v2/resources${src}`
+            : noAvatarImage;
+
         return template({
             ...this.props,
-            noAvatarImage,
+            avatarUrl,
         });
     }
 }

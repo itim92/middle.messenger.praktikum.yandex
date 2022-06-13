@@ -1,6 +1,5 @@
 import { Component } from "@/lib/templator";
 import template from "./template.tpl";
-import noAvatarImage from "../../../shared/img/user.svg";
 import { Chat } from "@/shared/types/Chat";
 
 type PropsType = {
@@ -8,6 +7,8 @@ type PropsType = {
     chat: Chat;
     isActive: boolean;
 };
+
+type TItemClass = "active" | "";
 
 export class ChatListItem extends Component<PropsType> {
     onClick(event: MouseEvent) {
@@ -17,9 +18,13 @@ export class ChatListItem extends Component<PropsType> {
     }
 
     render() {
+        const { isActive } = this.props;
+        const appendedClass: TItemClass = isActive ? "active" : "";
+        const itemClassName = `chat-item ${appendedClass}`;
+
         return template({
             ...this.props,
-            noAvatarImage,
+            itemClassName,
             onClick: this.onClick.bind(this),
         });
     }

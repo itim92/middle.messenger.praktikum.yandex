@@ -11,11 +11,11 @@ export default function template({
 }) {
     const errorMessageElement = () => {
         if (errorMessage) {
-            return [1].map(() => (
+            return [
                 <>
                     <div className="form-element-error">{errorMessage}</div>
                 </>
-            ));
+            ];
         }
 
         return null;

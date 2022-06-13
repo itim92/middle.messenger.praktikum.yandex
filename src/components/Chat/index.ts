@@ -6,6 +6,7 @@ import withChat from "@/store/helpers/withChat";
 import { Message } from "@/shared/types/Message";
 import { validatorService } from "@/services/Validator";
 import { chatController } from "@/controllers/ChatController";
+import { Nullable } from "@/shared/types/Nullable";
 
 type Props = {
     currentChatUsers?: User[];
@@ -18,13 +19,13 @@ export class Chat extends Component<Props> {
     get messageField() {
         return this.element.querySelector(
             "input[name='message']"
-        ) as HTMLInputElement;
+        ) as Nullable<HTMLInputElement>;
     }
 
     get errorMessageElement() {
         return this.element.querySelector(
             ".new-message-input-wrapper .new-message-input-error"
-        ) as HTMLElement;
+        ) as Nullable<HTMLElement>;
     }
 
     onMessageSend(event: PointerEvent) {
@@ -37,7 +38,12 @@ export class Chat extends Component<Props> {
             this.showError();
         }
 
-        chatController.sendMessage(this.messageField.value);
+        const message = this.messageField?.value;
+        if (!message) {
+            return;
+        }
+
+        chatController.sendMessage(message);
     }
 
     hideError() {
@@ -82,8 +88,12 @@ export class Chat extends Component<Props> {
     }
 
     render() {
+        let { currentChatUsers } = this.props;
+        currentChatUsers = currentChatUsers ?? [];
+
         return template({
             ...this.props,
+            currentChatUsers,
             onMessageSend: this.onMessageSend.bind(this),
         });
     }
