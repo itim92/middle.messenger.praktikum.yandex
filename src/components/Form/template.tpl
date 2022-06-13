@@ -6,22 +6,12 @@ export default function template({
     onSubmit
 }) {
     const renderField = ({
+        Component,
         element,
         onFocus,
         onBlur,
         onChange
     }) => {
-        let Component;
-        switch (element.type) {
-            case "password":
-                Component = InputPassword;
-            case "file":
-                Component = InputFile;
-            case "text":
-            default:
-                Component = InputText;
-        }
-
         return (
             <>
                 <Component element={element} onFocus={onFocus} onBlur={onBlur}

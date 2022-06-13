@@ -6,7 +6,9 @@ import {
     FormEventHandlerType,
     FormValuesType,
 } from "./types";
-import { TextInputPropsType } from "./fields/InputText";
+import { InputText, TextInputPropsType } from "./fields/InputText";
+import { InputFile, InputPassword } from "@/components/Form/fields";
+import { FormElementVariations } from "@/components/Form/types/form-element";
 
 type PropsType = {
     elements: FormElementType[];
@@ -45,9 +47,27 @@ export class Form extends Component<PropsType> {
         this.props.onSubmit(event, { values, component: this });
     }
 
+    getFieldComponentClass(element: FormElementType): typeof Component {
+        let Component;
+        switch (element.type) {
+            case FormElementVariations.PASSWORD:
+                Component = InputPassword;
+                break;
+            case FormElementVariations.FILE:
+                Component = InputFile;
+                break;
+            case FormElementVariations.TEXT:
+            default:
+                Component = InputText;
+        }
+
+        return Component;
+    }
+
     getFields() {
         return this.props.elements.map((element) => {
             const props: TextInputPropsType = {
+                Component: this.getFieldComponentClass(element),
                 element,
                 onFocus: this.props.onFieldFocus,
                 onBlur: this.props.onFieldBlur,

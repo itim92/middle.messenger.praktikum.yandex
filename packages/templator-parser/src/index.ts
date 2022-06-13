@@ -22,11 +22,3 @@ export function parse(raw: string) {
 
     return code;
 }
-
-/**
- * text node
- * start open tag
- * attribute name="" or name={}
- * end open tag or end singled tag
- * closed tag
- */

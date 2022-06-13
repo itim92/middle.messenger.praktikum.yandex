@@ -2,9 +2,13 @@ export default function template({
     name,
     label,
     type,
+    currentValue,
     errorMessage,
+    inputClassName,
+    onBlur,
+    onFocus,
+    onChange
 }) {
-    const inputClassName = errorMessage ? " with-error" : "";
     const errorMessageElement = () => {
         if (errorMessage) {
             return [1].map(() => (
@@ -24,7 +28,11 @@ export default function template({
                 <input
                     type={type}
                     name={name}
+                    value={currentValue}
                     className={inputClassName}
+                    onBlur={onBlur}
+                    onFocus={onFocus}
+                    onChange={onChange}
                 />
                 {errorMessageElement()}
             </label>

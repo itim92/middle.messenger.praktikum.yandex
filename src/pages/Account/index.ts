@@ -7,6 +7,16 @@ import {
     FormEventHandlerType,
 } from "@/components/Form/types";
 import { validatorService } from "@/services/Validator";
+import profileFormElements from "./fields/profile-fields";
+import avatarFormElements from "./fields/avatar-fields";
+import passwordFormElements from "./fields/password-fields";
+
+import { userController } from "@/controllers/UserController";
+import { ProfileParams } from "@/services/Api/UserService/types";
+import {
+    FormElementValidators,
+    FormElementValidatorType,
+} from "@/components/Form/types/form-validators";
 
 type PropsType = {
     profileFormElements: FormElementType[];
@@ -18,13 +28,6 @@ type PropsType = {
     isEdit: boolean;
 };
 
-import profileFormElements from "./fields/profile-fields";
-import avatarFormElements from "./fields/avatar-fields";
-import passwordFormElements from "./fields/password-fields";
-
-import { userController } from "@/controllers/UserController";
-import { ProfileParams } from "@/services/api/UserService/types";
-
 export class AccountPage extends Component<PropsType> {
     onSubmitChangePassword: FormEventHandlerType = (
         _event: FormDataEvent,
@@ -33,11 +36,17 @@ export class AccountPage extends Component<PropsType> {
         const fieldsErrorsStack = [];
         for (const key in values) {
             const value = values[key];
-            const element = passwordFormElements.find((e) => e.name === key);
+            const element = passwordFormElements.find(
+                (e: FormElementType) => e.name === key
+            );
             element.value = value?.toString();
 
-            if (element) {
-                const errorMessage = this.validateField(key, value?.toString());
+            if (element && element.validator) {
+                const errorMessage = this.validateField(
+                    element.validator,
+                    key,
+                    value?.toString()
+                );
                 element.errorMessage = errorMessage;
                 fieldsErrorsStack.push(Boolean(errorMessage));
             }
@@ -80,8 +89,12 @@ export class AccountPage extends Component<PropsType> {
             const element = profileFormElements.find((e) => e.name === key);
             element.value = value?.toString();
 
-            if (element) {
-                const errorMessage = this.validateField(key, value?.toString());
+            if (element && element.validator) {
+                const errorMessage = this.validateField(
+                    element.validator,
+                    key,
+                    value?.toString()
+                );
                 if (key === "display_name" && !value) {
                     continue;
                 }
@@ -118,41 +131,40 @@ export class AccountPage extends Component<PropsType> {
         _event,
         { name, value, component, element }
     ) => {
-        element.errorMessage = this.validateField(name, value);
-        const errorMessage = this.validateField(name, value?.toString());
-
-        if (
-            ["display_name", "oldPassword", "newPassword"].indexOf(name) !==
-                -1 &&
-            !value
-        ) {
+        const ignoredNames = ["display_name", "oldPassword", "newPassword"];
+        if (!element.validator || (ignoredNames.includes(name) && !value)) {
             return;
         }
 
-        element.errorMessage = errorMessage;
+        element.errorMessage = this.validateField(
+            element.validator,
+            name,
+            value?.toString()
+        );
         component.setProps({ element });
     };
 
-    validateField(name: string, value: string) {
+    validateField(
+        validatorType: FormElementValidatorType,
+        name: string,
+        value: string
+    ) {
         let errorMessage = "";
 
-        switch (name) {
-            case "email":
+        switch (validatorType) {
+            case FormElementValidators.EMAIL:
                 errorMessage = this.validateEmail(value);
                 break;
-            case "first_name":
-            case "second_name":
+            case FormElementValidators.NAME:
                 errorMessage = this.validateName(value, name);
                 break;
-            case "phone":
+            case FormElementValidators.PHONE:
                 errorMessage = this.validatePhone(value);
                 break;
-            case "oldPassword":
-            case "newPassword":
+            case FormElementValidators.PASSWORD:
                 errorMessage = this.validatePassword(value);
                 break;
-            case "login":
-            case "nickname":
+            case FormElementValidators.LOGIN:
                 errorMessage = this.validateLogin(value, name);
                 break;
         }

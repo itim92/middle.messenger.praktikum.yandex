@@ -24,19 +24,4 @@ describe("Test Route class", () => {
         router.use("/", Component);
         expect(router.getRoute("/")).to.be.instanceof(Route);
     });
-
-    // it("correct pathname setted", () => {
-    //     expect(Reflect.get(route, "pathname")).to.equal("/some-url");
-    // });
-    //
-    // it("correct component created", () => {
-    //     route.render();
-    //     expect(Reflect.get(route, "block")).to.instanceof(Component);
-    // });
-    //
-    // it("correct match method work", () => {
-    //     expect(route.match("/")).to.equal(false);
-    //     expect(route.match("/some-url/")).to.equal(false);
-    //     expect(route.match("/some-url")).to.equal(true);
-    // });
 });

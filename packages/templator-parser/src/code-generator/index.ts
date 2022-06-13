@@ -13,11 +13,11 @@ export default class CodeGenerator {
         this.tree = tree;
     }
 
-    generate() {
+    generate(): string {
         return this.generateNode(this.tree);
     }
 
-    generateNodes(children: NodeType[]) {
+    generateNodes(children: NodeType[]): string {
         const childrenCode: string[] = [];
 
         for (const child of children) {
@@ -53,7 +53,7 @@ export default class CodeGenerator {
         return code;
     }
 
-    generateElement(node: TagNodeType) {
+    generateElement(node: TagNodeType): string {
         const element =
             NODE_TYPE.COMPONENT === node.type ? node.name : `"${node.name}"`;
         const attributes = this.createAttributes(node.attributes);
@@ -68,7 +68,7 @@ export default class CodeGenerator {
         });
     }
 
-    createAttributes(attributes: AttributeOfNodeType[]) {
+    createAttributes(attributes: AttributeOfNodeType[]): string {
         if (!attributes || !attributes.length) {
             return null;
         }
@@ -86,7 +86,7 @@ export default class CodeGenerator {
     }`;
     }
 
-    createTextElement(node: TextNodeType) {
+    createTextElement(node: TextNodeType): string {
         return `document.createTextNode(${node.content})`;
     }
 
@@ -96,9 +96,9 @@ export default class CodeGenerator {
         children,
     }: {
         element: string;
-        attributes: string;
+        attributes: string | "null";
         children: string;
-    }) {
+    }): string {
         return `
     Templator.createElement(
         ${element}, 
