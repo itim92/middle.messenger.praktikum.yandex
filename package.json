@@ -11,7 +11,8 @@
     "dev": "parcel index.html",
     "build": "webpack",
     "lint": "npx eslint . && npx prettier -c .",
-    "test": "npx mocha -r ts-node/register src/**/*.spec.ts"
+    "test": "npx mocha -r ts-node/register src/**/*.spec.ts",
+    "prepare": "husky install"
   },
   "author": "Ismailov Timur <i.timka92@yandex.ru>",
   "license": "ISC",
@@ -37,6 +38,7 @@
     "eslint-plugin-prettier": "4.0.0",
     "express": "4.18",
     "html-webpack-plugin": "^5.5.0",
+    "husky": "^8.0.1",
     "less": "^4.1.3",
     "less-loader": "^11.0.0",
     "loader-utils": "github:webpack/loader-utils",
