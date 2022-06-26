@@ -3,15 +3,13 @@
   "version": "1.0.0",
   "description": "",
   "engine": "17.4",
-  "type": "module",
   "alias": {
     "@/*": "./src/$1",
     "templator": "./src/lib/templator"
   },
   "scripts": {
     "dev": "parcel index.html",
-    "build": "parcel build index.html",
-    "prebuild": "rm -rf dist",
+    "build": "webpack",
     "lint": "npx eslint . && npx prettier -c .",
     "test": "npx mocha -r ts-node/register src/**/*.spec.ts"
   },
@@ -32,22 +30,32 @@
     "@typescript-eslint/parser": "5.25",
     "babel-plugin-module-resolver": "4.1.0",
     "chai": "4.3.6",
+    "css-loader": "^6.7.1",
+    "deep-equal-in-any-order": "1.1.19",
     "eslint": "8.16",
     "eslint-config-prettier": "8.5.0",
     "eslint-plugin-prettier": "4.0.0",
     "express": "4.18",
+    "html-webpack-plugin": "^5.5.0",
+    "less": "^4.1.3",
+    "less-loader": "^11.0.0",
+    "loader-utils": "github:webpack/loader-utils",
     "mocha": "10.0.0",
-    "mocha-jsdom": "2.0.0",
+    "mocha-jsdom": "^1.2.0",
     "parcel": "2.5",
     "parcel-transformer-hbs": "1.0.4",
     "parcel-transformer-templator": "file:packages/parcel-transformer-templator",
     "prettier": "2.6.2",
     "prettier-eslint": "15.0.0",
+    "style-loader": "^3.3.1",
     "stylelint": "14.8",
     "templator-parser": "file:packages/templator-parser",
+    "ts-loader": "^9.3.1",
     "typescript": "4.6.4",
-    "xhr-mock": "2.5.1",
-    "deep-equal-in-any-order": "1.1.19"
+    "url-loader": "^4.1.1",
+    "webpack": "5.73.0",
+    "webpack-cli": "4.10.0",
+    "xhr-mock": "2.5.1"
   },
   "dependencies": {
     "handlebars": "4.7.7"

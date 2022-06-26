@@ -5,6 +5,9 @@ const path = require("path");
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const fs = require("fs");
 
+const hostname = "0.0.0.0"; // сервер запустим на всех интерфейсах
+const port = process.env.PORT ?? 3000;
+
 const app = express();
 
 app.use(express.static(path.join(__dirname, "/dist")));
@@ -32,4 +35,6 @@ app.get("/*", (req, res) => {
     });
 });
 
-app.listen("3000");
+app.listen(port, hostname, () => {
+    console.log(`Server running at http://${hostname}:${port}/`);
+});

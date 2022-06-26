@@ -1,4 +1,4 @@
-type StringIndexed = Record<string, any>;
+type StringIndexed = Record<string, unknown>;
 
 function isObject(obj: unknown): obj is StringIndexed {
     return (

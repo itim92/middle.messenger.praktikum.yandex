@@ -3,6 +3,7 @@
 [link on netlify](https://magnificent-malabi-11b0a9.netlify.app/)
 
 ## Третий спринт
+
 Pull request: https://github.com/itim92/middle.messenger.praktikum.yandex/pull/3
 
 ## Описание
@@ -18,9 +19,9 @@ Pull request: https://github.com/itim92/middle.messenger.praktikum.yandex/pull/3
 
 Установить проект очень просто
 
--   `npm install` — установка стабильной версии,
--   `npm run dev` — запуск версии для разработчика,
--   `npm run build` — сборка prod версии.
+- `npm install` — установка стабильной версии,
+- `npm run dev` — запуск версии для разработчика,
+- `npm run build` — сборка prod версии.
 
 ## Прототипы дизайна
 

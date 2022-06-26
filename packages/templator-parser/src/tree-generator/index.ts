@@ -60,7 +60,6 @@ export default class Tree {
                 default:
                     throw new Error(`invalid token ${token.type}`);
             }
-
         }
 
         return treeNode;
