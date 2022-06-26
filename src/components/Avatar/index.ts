@@ -1,16 +1,22 @@
-import { Component } from "../../templator";
-import template from "./template.hbs";
-import noAvatarImage from "./../../shared/img/user.svg";
+import { Component } from "@/lib/templator";
+import template from "./template.tpl";
+import noAvatarImage from "@/shared/img/user.svg";
 
 type PropsType = {
-    name: string;
+    src: string;
+    width: string;
 };
 
 export class Avatar extends Component<PropsType> {
     render() {
+        const { src } = this.props;
+        const avatarUrl = src
+            ? `https://ya-praktikum.tech/api/v2/resources${src}`
+            : noAvatarImage;
+
         return template({
             ...this.props,
-            noAvatarImage,
+            avatarUrl,
         });
     }
 }

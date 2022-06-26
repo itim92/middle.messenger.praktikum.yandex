@@ -1,5 +1,5 @@
-import { Component } from "../../../templator";
-import template from "./template.hbs";
+import { Component } from "@/lib/templator";
+import template from "./template.tpl";
 
 type PropsType = {
     date: string;
@@ -7,6 +7,6 @@ type PropsType = {
 
 export class MessageDateSeparator extends Component<PropsType> {
     render() {
-        return template(this.props);
+        return template({ ...this.props });
     }
 }

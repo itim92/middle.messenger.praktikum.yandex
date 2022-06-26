@@ -4,3 +4,4 @@
 **/*.hbs
 **/*.min.js
 /node_modules
+**/*.tpl

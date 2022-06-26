@@ -1,103 +1,39 @@
 import "./styles.less";
-import template from "./template.hbs";
-import { Component } from "../../templator";
-import { Avatar } from "../../components/Avatar";
-import { ChatList } from "../../components/ChatList";
-import { ChatTrack } from "../../components/ChatTrack";
+import template from "./template.tpl";
+import { Component } from "@/lib/templator";
+import { validatorService } from "@/services/Validator";
+import { ChatListItemType } from "@/components/ChatList/types/ChatListItemType";
+import { chatController } from "@/controllers/ChatController";
+import { Chat } from "@/shared/types/Chat";
+import { User } from "@/shared/types/User";
+import withChat from "@/store/helpers/withChat";
+import { Message } from "@/shared/types/Message";
 
-import chats from "./json/chats.json";
-import track from "./json/track.json";
-import { validatorService } from "../../services/Validator";
+type Props = {
+    currentChatUsers?: User[];
+    currentChat?: Chat;
+    chats?: ChatListItemType[];
+    messages?: Message[];
+};
 
-export class ChatPage extends Component {
-    events = {
-        "click .new-message-form .send": this.onNewMessageSubmit.bind(this),
-    };
+class ChatPage extends Component<Props> {
+    componentDidMount(_oldProps: Props) {
+        super.componentDidMount(_oldProps);
 
-    get messageField() {
-        return this.element.querySelector(
-            "input[name='message']"
-        ) as HTMLInputElement;
+        chatController.loadChats();
     }
 
-    get errorMessageElement() {
-        return this.element.querySelector(
-            ".new-message-input-wrapper .new-message-input-error"
-        ) as HTMLElement;
-    }
 
-    onNewMessageSubmit(event: PointerEvent) {
-        event.preventDefault();
-        const isValid = this.validateMessage();
-
-        if (isValid) {
-            this.hideError();
-        } else {
-            this.showError();
-        }
-
-        console.log({ message: this.messageField.value });
-    }
-
-    hideError() {
-        const errorMessageElement = this.errorMessageElement;
-        const messageField = this.messageField;
-
-        if (!errorMessageElement || !messageField) {
-            console.error(
-                "Проблема в верстке приложения, обратитесь к разработчикам"
-            );
-        }
-
-        messageField.classList.remove("with-error");
-        errorMessageElement.style.display = "none";
-    }
-
-    showError() {
-        const errorMessageElement = this.errorMessageElement;
-        const messageField = this.messageField;
-
-        if (!errorMessageElement || !messageField) {
-            console.error(
-                "Проблема в верстке приложения, обратитесь к разработчикам"
-            );
-        }
-
-        messageField.classList.add("with-error");
-        errorMessageElement.style.display = "block";
-    }
-
-    validateMessage() {
-        const messageField = this.messageField;
-
-        if (!messageField) {
-            console.error(
-                "Проблема в верстке приложения, обратитесь к разработчикам"
-            );
-        }
-
-        const message = messageField.value;
-        return validatorService.isValidMessage(message);
-    }
-
-    inject() {
-        return [
-            {
-                selector: "[data-component='Avatar']",
-                component: new Avatar({ name: "Светлана" }),
-            },
-            {
-                selector: "[data-component='ChatTrack']",
-                component: new ChatTrack({ track }),
-            },
-            {
-                selector: "[data-component='ChatList']",
-                component: new ChatList({ chats }),
-            },
-        ];
+    onFindedUserClick(_event, user) {
+        chatController.addUserToCurrentChat(user);
     }
 
     render() {
-        return template(this.props);
+        return template({
+            ...this.props,
+            onFindedUserClick: this.onFindedUserClick.bind(this),
+        });
     }
 }
+
+export default withChat(ChatPage as typeof Component);

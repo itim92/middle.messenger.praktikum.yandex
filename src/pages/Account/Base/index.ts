@@ -1,18 +1,17 @@
-import { Component } from "../../../templator";
-import template from "./template.hbs";
-import { Avatar } from "../../../components/Avatar";
+import template from "./template.tpl";
+import { Component } from "@/lib/templator";
+import { Indexed } from "@/shared/types/Indexed";
+import withUser from "@/store/helpers/withUser";
 
-export class BaseAccountPage extends Component {
-    inject() {
-        return [
-            {
-                selector: "[data-avatar]",
-                component: new Avatar({ name: "Сергей" }),
-            },
-        ];
-    }
+type PropsType = {
+    goToEdit: CallableFunction;
+    user: Indexed;
+};
 
+class Base extends Component<PropsType> {
     render() {
-        return template(this.props);
+        return template({ ...this.props });
     }
 }
+
+export default withUser(Base as typeof Component);

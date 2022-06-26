@@ -3,31 +3,53 @@
   "version": "1.0.0",
   "description": "",
   "engine": "17.4",
+  "type": "module",
+  "alias": {
+    "@/*": "./src/$1",
+    "templator": "./src/lib/templator"
+  },
   "scripts": {
     "dev": "parcel index.html",
     "build": "parcel build index.html",
     "prebuild": "rm -rf dist",
-    "test": "npx eslint . && npx prettier -c ."
+    "lint": "npx eslint . && npx prettier -c .",
+    "test": "npx mocha -r ts-node/register src/**/*.spec.ts"
   },
   "author": "Ismailov Timur <i.timka92@yandex.ru>",
   "license": "ISC",
   "devDependencies": {
-    "@parcel/plugin": "^2.5.0",
-    "@parcel/transformer-less": "^2.4.1",
-    "@typescript-eslint/eslint-plugin": "^5.22.0",
-    "@typescript-eslint/parser": "^5.22.0",
-    "eslint": "^8.14.0",
-    "eslint-config-prettier": "^8.5.0",
-    "eslint-plugin-prettier": "^4.0.0",
-    "express": "^4.17.3",
-    "parcel": "^2.4.1",
-    "parcel-transformer-hbs": "^1.0.4",
-    "prettier": "^2.6.2",
-    "prettier-eslint": "^15.0.0",
-    "stylelint": "^14.8.2",
-    "typescript": "^4.6.4"
+    "@babel/cli": "7.17.10",
+    "@babel/core": "7.18.2",
+    "@babel/preset-env": "7.18.2",
+    "@babel/preset-typescript": "7.17.12",
+    "@babel/register": "7.17.7",
+    "@parcel/plugin": "2.5",
+    "@parcel/transformer-less": "2.5",
+    "@types/chai": "4.3.1",
+    "@types/mocha": "9.1.1",
+    "@types/node": "17.0.40",
+    "@typescript-eslint/eslint-plugin": "5.25",
+    "@typescript-eslint/parser": "5.25",
+    "babel-plugin-module-resolver": "4.1.0",
+    "chai": "4.3.6",
+    "eslint": "8.16",
+    "eslint-config-prettier": "8.5.0",
+    "eslint-plugin-prettier": "4.0.0",
+    "express": "4.18",
+    "mocha": "10.0.0",
+    "mocha-jsdom": "2.0.0",
+    "parcel": "2.5",
+    "parcel-transformer-hbs": "1.0.4",
+    "parcel-transformer-templator": "file:packages/parcel-transformer-templator",
+    "prettier": "2.6.2",
+    "prettier-eslint": "15.0.0",
+    "stylelint": "14.8",
+    "templator-parser": "file:packages/templator-parser",
+    "typescript": "4.6.4",
+    "xhr-mock": "2.5.1",
+    "deep-equal-in-any-order": "1.1.19"
   },
   "dependencies": {
-    "handlebars": "^4.7.7"
+    "handlebars": "4.7.7"
   }
 }

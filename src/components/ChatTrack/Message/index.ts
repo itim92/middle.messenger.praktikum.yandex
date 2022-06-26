@@ -1,11 +1,15 @@
-import { Component } from "../../../templator";
+import { Component } from "@/lib/templator";
 import { MessageModel } from "./model";
-import template from "./template.hbs";
+import template from "./template.tpl";
+import store from "@/store";
 
-type Props = MessageModel;
+type Props = {
+    message: MessageModel;
+};
 
 export class Message extends Component<Props> {
     render() {
-        return template(this.props);
+        const { user } = store.getState();
+        return template({ ...this.props, user });
     }
 }

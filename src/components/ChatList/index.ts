@@ -1,28 +1,26 @@
-import { Component } from "../../templator";
-import template from "./template.hbs";
-import chats from "../../pages/Chat/json/chats.json";
-import { ChatListItem } from "./ChatListItem";
+import { Component } from "@/lib/templator";
+import template from "./template.tpl";
+import { ChatListItemType } from "@/components/ChatList/types/ChatListItemType";
+import { Chat } from "@/shared/types/Chat";
+import { chatController } from "@/controllers/ChatController";
+import withChat from "@/store/helpers/withChat";
 
-export class ChatList extends Component {
-    get chatListItems() {
-        const chatListItems = [];
-        for (const item of chats) {
-            chatListItems.push(new ChatListItem(item));
-        }
+type Props = {
+    chats: ChatListItemType[];
+    currentChat: Chat;
+};
 
-        return chatListItems;
-    }
-
-    inject() {
-        return [
-            {
-                selector: "[data-chat-list-items]",
-                component: this.chatListItems,
-            },
-        ];
+export class ChatList extends Component<Props> {
+    onChatClick(_event, chat) {
+        chatController.setCurrentChat(chat);
     }
 
     render() {
-        return template({ ...this.props });
+        return template({
+            ...this.props,
+            onChatClick: this.onChatClick.bind(this),
+        });
     }
 }
+
+export default withChat(ChatList as typeof Component);
