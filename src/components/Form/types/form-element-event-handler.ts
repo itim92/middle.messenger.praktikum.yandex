@@ -1,4 +1,4 @@
-import { Component } from "../../../templator";
+import { Component } from "@/lib/templator";
 import { FormElementType } from "./form-element";
 
 export type FormElementEventPayloadType = {

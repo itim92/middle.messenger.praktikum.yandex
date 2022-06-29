@@ -7,7 +7,7 @@ import {
 } from "@/components/Form/types";
 import template from "./template.tpl";
 import elements from "./fields";
-import { SignUpParams } from "@/services/api/AuthService/types";
+import { SignUpParams } from "@/services/Api/AuthService/types";
 import { authController } from "@/controllers/AuthController";
 
 type PropsType = {

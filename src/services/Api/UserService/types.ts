@@ -1,4 +1,4 @@
-import { ErrorResponse } from "@/services/api/BaseServiceAbstract/types";
+import { ErrorResponse } from "@/services/Api/BaseServiceAbstract/types";
 
 export type ProfileParams = {
     first_name: string;

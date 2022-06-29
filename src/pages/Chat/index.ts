@@ -1,7 +1,6 @@
 import "./styles.less";
 import template from "./template.tpl";
 import { Component } from "@/lib/templator";
-import { validatorService } from "@/services/Validator";
 import { ChatListItemType } from "@/components/ChatList/types/ChatListItemType";
 import { chatController } from "@/controllers/ChatController";
 import { Chat } from "@/shared/types/Chat";
@@ -22,7 +21,6 @@ class ChatPage extends Component<Props> {
 
         chatController.loadChats();
     }
-
 
     onFindedUserClick(_event, user) {
         chatController.addUserToCurrentChat(user);

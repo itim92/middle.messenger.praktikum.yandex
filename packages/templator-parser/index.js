@@ -135,7 +135,7 @@ var $d5236a2f272f8223$var$Tokenizer = /*#__PURE__*/ function() {
             key: "parse",
             value: function parse() {
                 var code = this.code;
-                var lastToken = undefined;
+                var lastToken;
                 while(code){
                     code = code.trim();
                     var token = undefined;
@@ -536,7 +536,7 @@ var $8aa66dcdd6756aa6$var$Tree = /*#__PURE__*/ function() {
                                 break;
                             default:
                                 throw new Error("invalid token ".concat(token.type));
-                        } // meta.lastNode = node;
+                        }
                     }
                 } catch (err) {
                     _iterator.e(err);
@@ -1003,13 +1003,7 @@ function $dad363e19ed00b2e$var$parse(raw) {
         _iterator.f();
     }
     return code;
-} /**
- * text node
- * start open tag
- * attribute name="" or name={}
- * end open tag or end singled tag
- * closed tag
- */ 
+}
 
 
 

@@ -1,4 +1,4 @@
-export { FormEventHandlerType } from "./form-event-handler";
-export { FormElementType } from "./form-element";
-export { FormValuesType } from "./form-values";
-export { FormElementEventHandlerType } from "./form-element-event-handler";
+export type { FormEventHandlerType } from "./form-event-handler";
+export type { FormElementType } from "./form-element";
+export type { FormValuesType } from "./form-values";
+export type { FormElementEventHandlerType } from "./form-element-event-handler";
