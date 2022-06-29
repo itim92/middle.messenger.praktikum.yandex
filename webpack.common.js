@@ -4,8 +4,6 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
-    mode: "development",
-    devtool: "inline-source-map",
     entry: "./src/index.ts",
     plugins: [
         new HtmlWebpackPlugin({
@@ -19,12 +17,21 @@ module.exports = {
         path: path.resolve(__dirname, "dist"),
     },
     resolve: {
-        // Add `.ts` and `.tsx` as a resolvable extension.
         extensions: [".ts", ".tsx", ".js"],
         alias: { "@": path.resolve(path.dirname("./"), "src") },
     },
     module: {
         rules: [
+            {
+                test: /\.js$/,
+                exclude: /(node_modules)/,
+                use: {
+                    loader: "babel-loader",
+                    options: {
+                        presets: ["@babel/preset-env"],
+                    },
+                },
+            },
             {
                 test: /\.(png|jpg|gif|svg)$/i,
                 use: [
@@ -37,6 +44,12 @@ module.exports = {
                 test: /\.tpl$/,
                 use: [
                     {
+                        loader: "babel-loader",
+                        options: {
+                            presets: ["@babel/preset-env"],
+                        },
+                    },
+                    {
                         loader: path.resolve(
                             "packages/templator-loader/loader.js"
                         ),
@@ -45,14 +58,8 @@ module.exports = {
             },
             {
                 test: /\.less$/i,
-                use: [
-                    // compiles Less to CSS
-                    "style-loader",
-                    "css-loader",
-                    "less-loader",
-                ],
+                use: ["style-loader", "css-loader", "less-loader"],
             },
-            // all files with a `.ts` or `.tsx` extension will be handled by `ts-loader`
             {
                 test: /\.tsx?$/,
                 loader: "ts-loader",

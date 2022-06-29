@@ -8,8 +8,9 @@
     "templator": "./src/lib/templator"
   },
   "scripts": {
-    "dev": "parcel index.html",
-    "build": "webpack",
+    "dev-parcel": "parcel index.parcel.html",
+    "dev": "webpack serve --open --config webpack.dev.js",
+    "build": "webpack --config webpack.prod.js",
     "lint": "npx eslint . && npx prettier -c .",
     "test": "npx mocha -r ts-node/register src/**/*.spec.ts",
     "prepare": "husky install"
@@ -29,6 +30,7 @@
     "@types/node": "17.0.40",
     "@typescript-eslint/eslint-plugin": "5.25",
     "@typescript-eslint/parser": "5.25",
+    "babel-loader": "8.2.5",
     "babel-plugin-module-resolver": "4.1.0",
     "chai": "4.3.6",
     "css-loader": "6.7.1",
@@ -56,7 +58,9 @@
     "typescript": "4.6.4",
     "url-loader": "4.1.1",
     "webpack": "5.73.0",
+    "webpack-merge": "5.8.0",
     "webpack-cli": "4.10.0",
+    "webpack-dev-server": "^4.9.2",
     "xhr-mock": "2.5.1"
   },
   "dependencies": {

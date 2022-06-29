@@ -6,7 +6,7 @@ const path = require("path");
 const fs = require("fs");
 
 const hostname = "0.0.0.0"; // сервер запустим на всех интерфейсах
-const port = process.env.PORT ?? 3000;
+const port = process.env.PORT || 3000;
 
 const app = express();
 
