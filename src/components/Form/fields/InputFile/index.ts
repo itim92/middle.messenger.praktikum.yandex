@@ -10,9 +10,6 @@ export class InputFile extends InputText {
     render() {
         return template({
             ...this.props.element,
-            onBlur: this.onBlur.bind(this),
-            onFocus: this.onFocus.bind(this),
-            onChange: this.onChange.bind(this),
         });
     }
 }

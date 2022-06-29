@@ -8,6 +8,7 @@ import {
 import { TemplateType } from "../types/TemplateType";
 import { TokenType } from "../types/TokenType";
 import { OneOfTokenTypes, TOKEN_TYPES } from "./token-types";
+import { Nullable } from "../../../../src/shared/types/Nullable";
 
 export default class Tokenizer {
     TOKEN_TYPES = TOKEN_TYPES;
@@ -24,7 +25,7 @@ export default class Tokenizer {
 
     parse() {
         let code = this.code;
-        let lastToken: TokenType | undefined = undefined;
+        let lastToken: Nullable<TokenType>;
 
         while (code) {
             code = code.trim();

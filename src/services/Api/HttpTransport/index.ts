@@ -67,11 +67,6 @@ class HTTPTransport {
         );
     };
 
-    // PUT, POST, DELETE
-
-    // options:
-    // headers — obj
-    // data — obj
     request = (url: string, options: HTTPOptions, timeout = 5000) => {
         const { headers, method, data } = options;
 

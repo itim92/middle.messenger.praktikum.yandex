@@ -2,25 +2,8 @@ export default function template({
     name,
     label,
     type,
-    currentValue,
-    errorMessage,
-    onBlur,
-    onFocus,
-    onChange
+    currentValue
 }) {
-    const inputClassName = errorMessage ? " with-error" : "";
-    const errorMessageElement = () => {
-        if (errorMessage) {
-            return [1].map(() => (
-                <>
-                    <div className="form-element-error">{errorMessage}</div>
-                </>
-            ));
-        }
-
-        return null;
-    };
-
     return (
         <>
             <label className="form-element">
@@ -29,12 +12,7 @@ export default function template({
                     type={type}
                     value={currentValue}
                     name={name}
-                    className={inputClassName}
-                    onBlur={onBlur}
-                    onFocus={onFocus}
-                    onChange={onChange}
                 />
-                {errorMessageElement()}
             </label>
         </>
     );

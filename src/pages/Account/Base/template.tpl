@@ -1,6 +1,5 @@
-import { userController } from "@/controllers/UserController";
 import { Avatar } from "@/components/Avatar";
-import { authController } from "@/controllers/AuthController/index.js";
+import { authController } from "@/controllers/AuthController";
 
 const labels = {
     id: "Идентификатор",
@@ -18,7 +17,6 @@ export default function template({goToEdit, user}) {
 
     return (
         <>
-
             <div className="info">
                 <ul className="fields">
                     <li>

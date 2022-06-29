@@ -2,13 +2,9 @@ import { Avatar } from "@/components/Avatar";
 
 export default function template({
     chat,
-    noAvatarImage,
     onClick,
-    isActive = false
+    itemClassName
 }) {
-
-    const itemClassName = "chat-item" + (isActive ? " active" : "");
-
     return (
         <>
             <div className={itemClassName} onClick={onClick}>

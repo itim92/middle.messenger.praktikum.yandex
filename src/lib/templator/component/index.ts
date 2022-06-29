@@ -42,7 +42,6 @@ export class Component<
         props: ComponentProps = {} as ComponentProps,
         tagName?: string
     ) {
-        props = props ?? {};
         this._eventBus = new EventBus();
         this._meta = {
             props,

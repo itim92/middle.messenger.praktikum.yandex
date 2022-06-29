@@ -7,6 +7,7 @@ const elements: FormElementType[] = [
         type: "text",
         value: "",
         errorMessage: "",
+        validator: "email",
     },
     {
         label: "Логин",
@@ -14,6 +15,7 @@ const elements: FormElementType[] = [
         type: "text",
         value: "",
         errorMessage: "",
+        validator: "login",
     },
     {
         label: "Имя",
@@ -21,6 +23,7 @@ const elements: FormElementType[] = [
         type: "text",
         value: "",
         errorMessage: "",
+        validator: "name",
     },
     {
         label: "Фамилия",
@@ -28,6 +31,7 @@ const elements: FormElementType[] = [
         type: "text",
         value: "",
         errorMessage: "",
+        validator: "name",
     },
     {
         label: "Имя в чате",
@@ -35,6 +39,7 @@ const elements: FormElementType[] = [
         type: "text",
         value: "",
         errorMessage: "",
+        validator: "login",
     },
     {
         label: "Телефон",
@@ -42,6 +47,7 @@ const elements: FormElementType[] = [
         type: "text",
         value: "",
         errorMessage: "",
+        validator: "phone",
     },
 ];
 

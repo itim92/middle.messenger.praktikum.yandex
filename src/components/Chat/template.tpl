@@ -10,7 +10,6 @@ export default function template({
     messages
 }) {
     const currentChatUsersList = () => {
-        currentChatUsers = currentChatUsers ?? [];
         return currentChatUsers.map((user) => {
             return (
                 <>

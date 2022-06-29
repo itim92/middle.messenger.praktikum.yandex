@@ -2,12 +2,18 @@
 
 [link on netlify](https://magnificent-malabi-11b0a9.netlify.app/)
 
-## Второй спринт
-Pull request: https://github.com/itim92/middle.messenger.praktikum.yandex/pull/2
+## Третий спринт
+
+Pull request: https://github.com/itim92/middle.messenger.praktikum.yandex/pull/3
 
 ## Описание
 
 Простой веб-чат с открытым исходным кодом.
+
+-   Добавлен свой jsx-based шаблонизатор
+-   Все приложение переписано с учетом нового шаблонизатора
+-   Добавлена возможность авторизовываться / регистрироваться и общаться в мессенджере (через ws сервер)
+-   Добавлено немного тестов, в перспективе ожидается полное покрытие
 
 ## Установка
 

@@ -2,11 +2,13 @@
   "name": "parcel-transformer-templator",
   "version": "1.0.0",
   "description": "",
-  "module": "index.js",
+  "main": "index.js",
+  "type": "commonjs",
   "author": "is.timka <i.timka92@yandex.ru>",
   "license": "ISC",
   "dependencies": {
     "parcel": "2.5.0",
+    "@parcel/plugin": "2.5.0",
     "templator-parser": "0.1.0"
   },
   "engines": {

@@ -7,6 +7,7 @@ const elements: FormElementType[] = [
         type: "password",
         value: "",
         errorMessage: "",
+        validator: "password",
     },
     {
         label: "Новый пароль",
@@ -14,6 +15,7 @@ const elements: FormElementType[] = [
         type: "password",
         value: "",
         errorMessage: "",
+        validator: "password",
     },
 ];
 

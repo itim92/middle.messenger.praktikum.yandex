@@ -60,8 +60,6 @@ export default class Tree {
                 default:
                     throw new Error(`invalid token ${token.type}`);
             }
-
-            // meta.lastNode = node;
         }
 
         return treeNode;

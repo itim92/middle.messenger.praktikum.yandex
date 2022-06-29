@@ -52,17 +52,5 @@ class AuthService extends BaseServiceAbstract {
     }
 }
 
-const u26696 = {
-    id: 26696,
-    first_name: "John",
-    second_name: "Doe",
-    display_name: null,
-    login: "qwerty",
-    avatar: null,
-    email: "qwerty@qwerty.qwe",
-    phone: "+78901234567",
-};
-
 const authService = new AuthService(httpTransportService);
-
 export { authService, AuthService };

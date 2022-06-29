@@ -49,7 +49,6 @@ const routes: RouteObjectType[] = [
         component: {
             component: ChatPage as typeof Component,
             props: {
-                // isEdit: false,
                 className: "container fluid",
             },
         },

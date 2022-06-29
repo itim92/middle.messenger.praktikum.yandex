@@ -4,6 +4,7 @@ import { FormElementType, FormElementEventHandlerType } from "../../types";
 
 export type TextInputPropsType = {
     currentValue?: string;
+    Component: typeof Component;
     element: FormElementType;
     onChange?: FormElementEventHandlerType;
     onFocus?: FormElementEventHandlerType;
@@ -13,12 +14,6 @@ export type TextInputPropsType = {
 
 export class InputText extends Component<TextInputPropsType> {
     currentValue = "";
-    //
-    // readonly events = {
-    //     "blur input": this.onBlur.bind(this),
-    //     "focus input": this.onFocus.bind(this),
-    //     "change input": this.onChange.bind(this),
-    // };
 
     constructor(props: TextInputPropsType) {
         super(props);
@@ -77,6 +72,9 @@ export class InputText extends Component<TextInputPropsType> {
     }
 
     render() {
+        const inputClassName: string = this.props.errorMessage
+            ? " with-error"
+            : "";
         const currentValue =
             this.currentValue ??
             this.props.currentValue ??
@@ -86,6 +84,7 @@ export class InputText extends Component<TextInputPropsType> {
         return template({
             ...this.props.element,
             currentValue,
+            inputClassName,
             onBlur: this.onBlur.bind(this),
             onFocus: this.onFocus.bind(this),
             onChange: this.onChange.bind(this),

@@ -79,10 +79,6 @@ function renderChildren(
         return;
     }
 
-    // if (typeof children === "function") {
-    //     return children();
-    // }
-
     for (const child of children) {
         render(child, dom);
     }
